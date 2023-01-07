@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.269">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Bruno Gondim Toledo">
+<meta name="dcterms.date" content="2023-01-07">
+
+<title>Trabalho 1</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="trab1_files/libs/clipboard/clipboard.min.js"></script>
+<script src="trab1_files/libs/quarto-html/quarto.js"></script>
+<script src="trab1_files/libs/quarto-html/popper.min.js"></script>
+<script src="trab1_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="trab1_files/libs/quarto-html/anchor.min.js"></script>
+<link href="trab1_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="trab1_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="trab1_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="trab1_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="trab1_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Trabalho 1</h1>
+<p class="subtitle lead">Computação em Estatística 2 - 2/2022</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Bruno Gondim Toledo </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">January 7, 2023</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+<div>
+  <div class="abstract">
+    <div class="abstract-title">Abstract</div>
+    Manipulações de dados num banco referente a avaliações de consumidores a produtos adquiridos no site Americanas.com entre Janeiro e Maio de 2018
+  </div>
+</div>
+
+</header>
+
+<section id="para-os-10-produtos-mais-comprados-nesse-período-retorne-uma-tabela-contendo-nome-do-produtonúmero-de-compradores-para-cada-sexo-e-nota-média-do-produto-por-sexo." class="level1">
+<h1>1) Para os 10 produtos mais comprados nesse período, retorne uma tabela contendo: nome do produto,número de compradores para cada sexo e nota média do produto por sexo.</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">"pacman"</span>)) <span class="fu">install.packages</span>(<span class="st">"pacman"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">p_load</span>(doParallel)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>threads<span class="ot">=</span><span class="fu">round</span>(<span class="fu">as.numeric</span>(<span class="fu">detectCores</span>()<span class="sc">*</span><span class="fl">0.8</span>))</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>pasta <span class="ot">&lt;-</span> <span class="st">"dados"</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">file.exists</span>(pasta)) {</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">"A pasta já existe"</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rm</span>(pasta)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dir.create</span>(pasta)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rm</span>(pasta)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "A pasta já existe"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>link <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"https://raw.githubusercontent.com/americanas-tech/b2w-reviews01/main/B2W-Reviews01.csv"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>nome_destino <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"./dados/df.csv"</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(link, nome_destino)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(link,nome_destino,pasta)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">p_load</span>(vroom)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">vroom</span>(<span class="st">"./dados/df.csv"</span>, </span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>               <span class="at">locale =</span> <span class="fu">locale</span>(<span class="st">"br"</span>, <span class="at">encoding =</span> <span class="st">"UTF-8"</span>),</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>               <span class="at">num_threads =</span> threads)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">p_load</span>(tidyverse)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(product_id,product_name,overall_rating,reviewer_gender) <span class="sc">%&gt;%</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">product_id =</span> <span class="fu">factor</span>(product_id)) <span class="sc">%&gt;%</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">product_name =</span> <span class="fu">factor</span>(product_name)) <span class="sc">%&gt;%</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">reviewer_gender =</span> <span class="fu">factor</span>(reviewer_gender))</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>filtro <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(product_id,<span class="at">sort=</span>T) <span class="sc">%&gt;%</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="at">n=</span>10L) <span class="sc">%&gt;%</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(product_id)</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> <span class="fu">semi_join</span>(dados, filtro)</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>tabela1 <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(product_name,overall_rating,reviewer_gender) <span class="sc">%&gt;%</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(product_name,reviewer_gender) <span class="sc">%&gt;%</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">nota_media =</span> <span class="fu">mean</span>(overall_rating)) <span class="sc">%&gt;%</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(reviewer_gender)</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>tabela2 <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(product_name,reviewer_gender) <span class="sc">%&gt;%</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(product_name,reviewer_gender) <span class="sc">%&gt;%</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(reviewer_gender) <span class="sc">%&gt;%</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(reviewer_gender)</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>tabela_questao1 <span class="ot">&lt;-</span> <span class="fu">full_join</span>(tabela1,tabela2)</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(filtro,tabela1,tabela2,dados)</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(tabela_questao1) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"nome do produto"</span>,<span class="st">"sexo do comprador"</span>,<span class="st">"nota média do produto"</span>,<span class="st">"número de compradores"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>tabela_questao1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 20 × 4
+# Groups:   nome do produto [10]
+   `nome do produto`                                     sexo …¹ nota …² númer…³
+   &lt;fct&gt;                                                 &lt;fct&gt;     &lt;dbl&gt;   &lt;int&gt;
+ 1 "Aspirador de Pó Philco Rapid 1000N Vermelho/Preto -… F          4.43     528
+ 2 "Aspirador de Pó Philco Rapid 1000N Vermelho/Preto -… M          4.28     218
+ 3 "Smart TV LED 32\" Samsung 32J4300 HD com Conversor … F          4.05     205
+ 4 "Smart TV LED 32\" Samsung 32J4300 HD com Conversor … M          3.71     282
+ 5 "Smartphone Moto G 5S Dual Chip Android 7.0 Tela 5.2… F          4.25     174
+ 6 "Smartphone Moto G 5S Dual Chip Android 7.0 Tela 5.2… M          4.18     225
+ 7 "Smartphone Motorola Moto G 5S Dual Chip Android 7.1… F          4.11     292
+ 8 "Smartphone Motorola Moto G 5S Dual Chip Android 7.1… M          4.11     248
+ 9 "Smartphone Motorola Moto G 5S Dual Chip Android 7.1… F          4.05     274
+10 "Smartphone Motorola Moto G 5S Dual Chip Android 7.1… M          4.07     501
+11 "Smartphone Samsung Galaxy J5 Prime Dual Chip Androi… F          3.85     276
+12 "Smartphone Samsung Galaxy J5 Prime Dual Chip Androi… M          3.92     223
+13 "Smartphone Samsung Galaxy J5 Pro Dual Chip Android … F          4.15     219
+14 "Smartphone Samsung Galaxy J5 Pro Dual Chip Android … M          4.08     207
+15 "Smartphone Samsung Galaxy J7 Metal Dual Chip Androi… F          4.24     343
+16 "Smartphone Samsung Galaxy J7 Metal Dual Chip Androi… M          4.04     319
+17 "Smartphone Samsung Galaxy J7 Metal Dual Chip Androi… F          4.19     142
+18 "Smartphone Samsung Galaxy J7 Metal Dual Chip Androi… M          4.11     250
+19 "Smartphone Samsung Galaxy J7 Prime Dual Chip Androi… F          4.02     280
+20 "Smartphone Samsung Galaxy J7 Prime Dual Chip Androi… M          3.96     230
+# … with abbreviated variable names ¹​`sexo do comprador`,
+#   ²​`nota média do produto`, ³​`número de compradores`</code></pre>
+</div>
+</div>
+</section>
+<section id="escreva-uma-função-para-fazer-uma-limpeza-no-texto-de-1-review-transformação-do-texto-em-minúsculae-retirada-de-todos-os-sinais-de-pontuação-caracteres-especiais-e-acentos.-teste-para-vários-reviews-ofuncionamento-da-função-criada." class="level1">
+<h1>2) Escreva uma função para fazer uma limpeza no texto de 1 review: transformação do texto em minúsculae retirada de todos os sinais de pontuação, caracteres especiais e acentos. Teste para vários reviews ofuncionamento da função criada.</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">p_load</span>(stringi)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>emburrecer <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">x=</span><span class="dv">1</span>){</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(review_text) <span class="sc">%&gt;%</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sample_n</span>(<span class="at">size=</span>x) <span class="sc">%&gt;%</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_to_lower</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stri_trans_general</span>(<span class="st">"Latin-ASCII"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_replace_all</span>(<span class="at">pattern=</span><span class="st">"[ç]"</span>, <span class="at">replacement=</span><span class="st">"c"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_replace_all</span>(<span class="at">pattern=</span><span class="st">"[!@#$%¨&amp;*()?;:.</span><span class="sc">\'\"</span><span class="st">,</span><span class="sc">\\</span><span class="st">|</span><span class="sc">\\</span><span class="st">-/]"</span>, <span class="at">replacement=</span><span class="st">" "</span>)</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">emburrecer</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "muito bom super recomendo otimo meu filho ta adorando"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">emburrecer</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "no primeiro uso  soltou duas vezes do engate rapido e na terceira estourou a mangueira com a pressao da agua  e tomei banho todas as vezes ate desligar e molhou toda minha lavanderia "</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">emburrecer</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "tamanho ruim e muito vulneravel  achei que tivesse pelo menos a mesma qualidade de um  perfex  "</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">emburrecer</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "produto excelente  preco justo e produto funcional  relogio sem frescuras e extremamente duravel "</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">emburrecer</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "excelente produto  leve compacto recomendo o produto sim"</code></pre>
+</div>
+</div>
+</section>
+<section id="utilizando-apenas-a-informação-contida-na-variávelproduct_name-retorne-uma-tabela-com-todas-astelevisões-compradas-no-período-1-compra-por-linha-e-o-número-de-polegadas-correspondente-da-tv.-emseguida-retorne-outra-tabela-contendo-o-total-de-tvs-compradas-de-cada-polegada." class="level1">
+<h1>3) Utilizando apenas a informação contida na variávelproduct_name, retorne uma tabela com todas astelevisões compradas no período (1 compra por linha) e o número de polegadas correspondente da TV. Emseguida, retorne outra tabela contendo o total de TVs compradas de cada polegada.</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(<span class="fu">str_subset</span>(df<span class="sc">$</span>product_name,<span class="at">pattern=</span><span class="st">"Smart TV"</span>,<span class="at">negate=</span>F))</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(<span class="fu">str_subset</span>(dados<span class="sc">$</span>value,<span class="at">pattern=</span><span class="st">"Acessório"</span>,<span class="at">negate=</span>T))</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(<span class="fu">str_subset</span>(dados<span class="sc">$</span>value,<span class="at">pattern=</span><span class="st">"Suporte"</span>,<span class="at">negate=</span>T))</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>dados<span class="sc">$</span>polegadas <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(<span class="fu">str_extract</span>(dados<span class="sc">$</span>value, <span class="st">"[0-9]+"</span>))</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(dados) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Televisão"</span>,<span class="st">"Polegadas"</span>)</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>tabela1_questao3 <span class="ot">&lt;-</span> dados</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(dados)</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>tabela1_questao3<span class="sc">$</span>Polegadas <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">unlist</span>(tabela1_questao3<span class="sc">$</span>Polegadas))</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>tabela2_questao3 <span class="ot">&lt;-</span> tabela1_questao3 <span class="sc">%&gt;%</span></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Polegadas) <span class="sc">%&gt;%</span></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Polegadas) <span class="sc">%&gt;%</span></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Polegadas <span class="sc">&gt;</span> <span class="dv">5</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tally</span>()</span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(tabela2_questao3) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Polegadas"</span>,<span class="st">"Quantidade vendida"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>tabela1_questao3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5,469 × 2
+   Televisão                                                             Poleg…¹
+   &lt;chr&gt;                                                                   &lt;dbl&gt;
+ 1 "Smart TV LED 43\" LG 43UJ6525 Ultra HD 4K com Conversor Digital 4 H…      43
+ 2 "Smart TV LED 65\" Samsung 65MU6100 UHD 4K HDR Premium com Conversor…      65
+ 3 "Smart TV Android LED 49\" TCL C2 49C2US Ultra HD 4K com Conversor D…      49
+ 4 "Smart TV LED Philips 43\" 43pfg5102/78 com Conversor Digital Wi-Fi …      43
+ 5 "Smart TV LED 43\" Philips 43PUG6102/78 Ultra HD 4k com Conversor Di…      43
+ 6 "Smart TV LED 43\" AOC LE43U7970 Ultra HD 4k com Conversor Digital 3…      43
+ 7 "Smart TV LED 39\" Philco PH39N86DSGW HD com Conversor Digital 3 HDM…      39
+ 8 "Smart TV LED  32\" LG 32LJ600B  HD  com Conversor Digital Wi-Fi int…      32
+ 9 "Smart TV LED LG 55\" SUPER ULTRA HD 55SJ8000 Conversor Digital Wi-F…      55
+10 "Smart TV LED 43\" LG 43lj5500 Full HD com Conversor Digital Wi-Fi i…      43
+# … with 5,459 more rows, and abbreviated variable name ¹​Polegadas</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>tabela2_questao3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 18 × 2
+   Polegadas `Quantidade vendida`
+       &lt;dbl&gt;                &lt;int&gt;
+ 1        24                   57
+ 2        28                   78
+ 3        32                 1265
+ 4        39                  348
+ 5        40                  416
+ 6        42                  119
+ 7        43                 1092
+ 8        48                   15
+ 9        49                 1127
+10        50                  136
+11        55                  455
+12        58                  297
+13        60                    2
+14        65                   24
+15        75                    6
+16        78                    1
+17        82                    1
+18        85                    6</code></pre>
+</div>
+</div>
+</section>
+<section id="transforme-a-variável-reviewer_state-em-categórica-e-faça-um-gráfico-do-número-de-compras-por-estado-da-federação.-em-seguida-faça-um-gráfico-do-número-de-compras-por-regiões-do-brasil-norte-sul-nordestecentro-oeste-e-sudeste." class="level1">
+<h1>4) Transforme a variável reviewer_state em categórica e faça um gráfico do número de compras por Estado da Federação. Em seguida, faça um gráfico do número de compras por Regiões do Brasil (Norte, Sul, Nordeste,Centro-Oeste e Sudeste).</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(reviewer_state) <span class="sc">%&gt;%</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>()</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>dados<span class="sc">$</span>reviewer_state <span class="ot">&lt;-</span> <span class="fu">factor</span>(dados<span class="sc">$</span>reviewer_state)  </span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>comprasregiao <span class="ot">&lt;-</span> dados</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(dados)</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(comprasregiao) <span class="sc">+</span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x=</span>reviewer_state) <span class="sc">+</span></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">colour=</span><span class="st">"#A11D21"</span>,<span class="at">fill=</span><span class="st">"#A11D21"</span>) <span class="sc">+</span></span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Unidade Federativa"</span>, <span class="at">y=</span><span class="st">"Quantidade de compras"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="trab1_files/figure-html/questao4-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>comprasregiao <span class="ot">&lt;-</span> comprasregiao <span class="sc">%&gt;%</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">regiao =</span> <span class="fu">case_when</span>(</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    reviewer_state <span class="sc">==</span> <span class="st">"AC"</span> <span class="sc">|</span> reviewer_state <span class="sc">==</span> <span class="st">"AM"</span> <span class="sc">|</span> reviewer_state <span class="sc">==</span> <span class="st">"AP"</span> <span class="sc">|</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    reviewer_state <span class="sc">==</span> <span class="st">"PA"</span> <span class="sc">|</span> reviewer_state <span class="sc">==</span> <span class="st">"RO"</span> <span class="sc">|</span> reviewer_state <span class="sc">==</span> <span class="st">"RR"</span> <span class="sc">|</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    reviewer_state <span class="sc">==</span> <span class="st">"TO"</span> <span class="sc">~</span> <span class="st">"Norte"</span>,</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>    reviewer_state <span class="sc">==</span> <span class="st">"AL"</span> <span class="sc">|</span> reviewer_state <span class="sc">==</span> <span class="st">"BA"</span> <span class="sc">|</span> reviewer_state <span class="sc">==</span> <span class="st">"CE"</span> <span class="sc">|</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>    reviewer_state <span class="sc">==</span> <span class="st">"MA"</span> <span class="sc">|</span> reviewer_state <span class="sc">==</span> <span class="st">"PI"</span> <span class="sc">|</span> reviewer_state <span class="sc">==</span> <span class="st">"PE"</span> <span class="sc">|</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>    reviewer_state <span class="sc">==</span> <span class="st">"PB"</span> <span class="sc">|</span> reviewer_state <span class="sc">==</span> <span class="st">"RN"</span> <span class="sc">|</span> </span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>    reviewer_state <span class="sc">==</span> <span class="st">"SE"</span> <span class="sc">~</span> <span class="st">"Nordeste"</span>,</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>    reviewer_state <span class="sc">==</span> <span class="st">"GO"</span> <span class="sc">|</span> reviewer_state <span class="sc">==</span> <span class="st">"MT"</span> <span class="sc">|</span> reviewer_state <span class="sc">==</span> <span class="st">"MS"</span> <span class="sc">|</span> </span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>    reviewer_state <span class="sc">==</span> <span class="st">"DF"</span> <span class="sc">~</span> <span class="st">"Centro-Oeste"</span>,</span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>    reviewer_state <span class="sc">==</span> <span class="st">"ES"</span> <span class="sc">|</span> reviewer_state <span class="sc">==</span> <span class="st">"MG"</span> <span class="sc">|</span> reviewer_state <span class="sc">==</span> <span class="st">"RJ"</span> <span class="sc">|</span></span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>    reviewer_state <span class="sc">==</span> <span class="st">"SP"</span> <span class="sc">~</span> <span class="st">"Sudeste"</span>,</span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>    reviewer_state <span class="sc">==</span> <span class="st">"PR"</span> <span class="sc">|</span> reviewer_state <span class="sc">==</span> <span class="st">"RS"</span> <span class="sc">|</span> </span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>    reviewer_state <span class="sc">==</span> <span class="st">"SC"</span> <span class="sc">~</span> <span class="st">"Sul"</span></span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a>    ))</span>
+<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(comprasregiao) <span class="sc">+</span></span>
+<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x=</span>regiao) <span class="sc">+</span></span>
+<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">colour=</span><span class="st">"#A11D21"</span>,<span class="at">fill=</span><span class="st">"#A11D21"</span>) <span class="sc">+</span></span>
+<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Região"</span>, <span class="at">y=</span><span class="st">"Quantidade de compras"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="trab1_files/figure-html/questao4-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="considere-apenas-a-informação-da-hora-do-dia-em-que-a-compra-foi-realizada.-faça-um-gráfico-do-número-de-compras-em-cada-hora." class="level1">
+<h1>5) Considere apenas a informação da hora do dia em que a compra foi realizada. Faça um gráfico do número de compras em cada hora.</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">p_load</span>(hms)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(submission_date) <span class="sc">%&gt;%</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">hora =</span> <span class="fu">as_hms</span>(submission_date))</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>comprahora <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(hora)</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(dados)  </span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>comprahora<span class="sc">$</span>hora <span class="ot">&lt;-</span> <span class="fu">substr</span>(comprahora<span class="sc">$</span>hora, <span class="at">start =</span> <span class="dv">1</span>, <span class="at">stop =</span> <span class="dv">2</span>)</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>comprahora<span class="sc">$</span>hora <span class="ot">&lt;-</span> <span class="fu">factor</span>(comprahora<span class="sc">$</span>hora)</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(comprahora) <span class="sc">+</span></span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x=</span>hora) <span class="sc">+</span></span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">colour=</span><span class="st">"#A11D21"</span>,<span class="at">fill=</span><span class="st">"#A11D21"</span>) <span class="sc">+</span></span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Hora do dia"</span>, <span class="at">y=</span><span class="st">"Quantidade de compras"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="trab1_files/figure-html/questao5-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="acrescente-1-coluna-no-banco-de-dados-com-a-informação-da-data-da-compra-no-seguinte-formato-exemplo11-de-janeiro-2018." class="level1">
+<h1>6) Acrescente 1 coluna no banco de dados com a informação da data da compra no seguinte formato, exemplo:11 de Janeiro, 2018.</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">p_load</span>(lubridate)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(submission_date)</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>dados<span class="sc">$</span>submission_date[<span class="dv">1</span>] <span class="co"># 10 primeiros caracteres</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "2018-01-01 00:11:28 UTC"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>dados<span class="sc">$</span>submission_date <span class="ot">&lt;-</span> <span class="fu">substr</span>(dados<span class="sc">$</span>submission_date, <span class="at">start =</span> <span class="dv">1</span>, <span class="at">stop =</span> <span class="dv">10</span>)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>dados<span class="sc">$</span>submission_date <span class="ot">&lt;-</span> <span class="fu">ymd</span>(dados<span class="sc">$</span>submission_date)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">mes =</span> <span class="fu">format</span>(submission_date, <span class="st">"%B"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">dia =</span> <span class="fu">day</span>(submission_date)) <span class="sc">%&gt;%</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ano =</span> <span class="fu">year</span>(submission_date))</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(dados)</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">data =</span> <span class="fu">str_glue</span>(<span class="st">'{dia} de {mes},{ano}'</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(data)</span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">cbind</span>(df,data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tibble</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 132,373 × 15
+   submission_date     reviewe…¹ produ…² produ…³ produ…⁴ site_…⁵ site_…⁶ revie…⁷
+   &lt;dttm&gt;              &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  
+ 1 2018-01-01 00:11:28 d0fb1ca6…  1.33e8 "Noteb… &lt;NA&gt;    Inform… Notebo… Bom    
+ 2 2018-01-01 00:13:48 014d6dc5…  2.26e7 "Copo … &lt;NA&gt;    Utilid… Copos,… Preço …
+ 3 2018-01-01 00:26:02 44f2c8ed…  1.13e8 "Panel… philip… Eletro… Panela… ATENDE…
+ 4 2018-01-01 00:35:54 ce741665…  1.14e8 "Beton… roma j… Brinqu… Veícul… presen…
+ 5 2018-01-01 01:00:28 7d7b6b18…  1.32e8 "Smart… lg      TV e H… TV      Sem du…
+ 6 2018-01-01 01:27:23 28b1844e…  2.26e7 "Copo … &lt;NA&gt;    Utilid… Copos,… Produt…
+ 7 2018-01-01 01:54:38 48907a04…  2.26e7 "Copo … &lt;NA&gt;    Utilid… Copos,… ótimo  
+ 8 2018-01-01 01:58:17 e039cbff…  1.32e8 "Smart… &lt;NA&gt;    Celula… Smartp… Gostei…
+ 9 2018-01-01 02:02:13 a0fd1ad3…  1.23e8 "Venti… ventis… Casa e… Climat… Gostei…
+10 2018-01-01 02:16:06 eb1cceab…  2.35e7 "Kit 1… &lt;NA&gt;    Casa e… Ilumin… NÃO RE…
+# … with 132,363 more rows, 7 more variables: overall_rating &lt;dbl&gt;,
+#   recommend_to_a_friend &lt;chr&gt;, review_text &lt;chr&gt;, reviewer_birth_year &lt;dbl&gt;,
+#   reviewer_gender &lt;chr&gt;, reviewer_state &lt;chr&gt;, data &lt;glue&gt;, and abbreviated
+#   variable names ¹​reviewer_id, ²​product_id, ³​product_name, ⁴​product_brand,
+#   ⁵​site_category_lv1, ⁶​site_category_lv2, ⁷​review_title</code></pre>
+</div>
+</div>
+</section>
+<section id="crie-uma-função-para-reordenar-as-linhas-de-um-dataframe-de-modo-que-as-linhas-que-contenham-observações-indisponíveis-nas-sejam-colocadas-no-final.-dê-ao-usuário-a-opção-de-eliminar-as-linhas-com-observações-faltantes.-use-a-função-para-retornar-uma-lista-com-o-dataframe-reordenado-ou-reduzido-e-os-índices-das-linhas-com-nas.-por-fim-teste-sua-função-com-alguns-exemplos-interessantes." class="level1">
+<h1>7) Crie uma função para reordenar as linhas de um dataframe de modo que as linhas que contenham observações indisponíveis (NAs) sejam colocadas no final. Dê ao usuário a opção de eliminar as linhas com observações faltantes. Use a função para retornar uma lista com o dataframe reordenado (ou reduzido) e os índices das linhas com NAs. Por fim, teste sua função com alguns exemplos interessantes.</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>ordenar <span class="ot">&lt;-</span> <span class="cf">function</span>(df, <span class="at">rna =</span> F) {</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  df<span class="sc">$</span>soma <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(<span class="fu">is.na</span>(df))</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(soma)</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>  df<span class="sc">$</span>soma <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (rna) {</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>    df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>      <span class="fu">filter</span>(<span class="fu">rowSums</span>(<span class="fu">is.na</span>(df)) <span class="sc">==</span> <span class="dv">0</span>)</span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">list</span>(<span class="at">df =</span> df, <span class="at">linhas_na =</span> <span class="fu">which</span>(<span class="fu">rowSums</span>(<span class="fu">is.na</span>(df)) <span class="sc">&gt;</span> <span class="dv">0</span>)))</span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Aqui no HTML vou colocar apenas esse exemplo pequeno, para não poluir demais. Os outros testes se encontram no arquivo .R</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>df2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,<span class="cn">NA</span>,<span class="dv">7</span><span class="sc">:</span><span class="dv">9</span>,<span class="cn">NA</span>,<span class="dv">11</span><span class="sc">:</span><span class="dv">15</span>), <span class="at">y =</span> <span class="fu">c</span>(<span class="st">"ae"</span>, <span class="cn">NA</span>, <span class="st">"gi"</span>, <span class="cn">NA</span>, <span class="st">"k"</span>))</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ordenar</span>(df2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$df
+    x    y
+1   1   ae
+2   3   gi
+3   5    k
+4   8   gi
+5  11   ae
+6  13   gi
+7  15    k
+8   2 &lt;NA&gt;
+9   4 &lt;NA&gt;
+10 NA   ae
+11  7 &lt;NA&gt;
+12  9 &lt;NA&gt;
+13 NA    k
+14 12 &lt;NA&gt;
+15 14 &lt;NA&gt;
+
+$linhas_na
+[1]  8  9 10 11 12 13 14 15</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ordenar</span>(df2, <span class="at">rna=</span>T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$df
+   x  y
+1  1 ae
+2  3 gi
+3  5  k
+4  8 gi
+5 11 ae
+6 13 gi
+7 15  k
+
+$linhas_na
+integer(0)</code></pre>
+</div>
+</div>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
