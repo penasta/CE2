@@ -1,6 +1,5 @@
 if (!require("pacman")) install.packages("pacman")
 p_load(tidyverse)
-library(tidyverse)
 
 x <- -2:2
 x
@@ -47,8 +46,7 @@ for(i in 1:seq_along(df)){ # ta com algum erro no seq_along
 output <- unlist(output)
 output
 
-rm(i)
-
+rm(list = ls())
 # Calculando a área de um círculo
 
 #buffon.needle()
@@ -66,19 +64,83 @@ for (i in 1:n.pontos){
   } 
 }
 
-pi <- 4*(dentro/n.pontos)
-pi
 
 area_circ <- (2*raio)^2*dentro/n.pontos
 area_circ
 
-# Exercício: Melhorar a função, envelopar em uma função, plotar
-# OPC: documentar
+# rm(list = ls())
 
-# paralelizando;
-# cluster <- makeCluster(threads)
-# registerDoParallel(cluster)
+# Tentando melhorar
+# 1ºs objetivos: Eliminar o loop ineficiente e desnecessário, plotar os pontos.
+# também, a função deve retornar o valor da área, juntamente ao gráfico
+p_load(ggforce)
 
-# foreach(i=1:686) %dopar% {write_parquet(as.data.frame(banco[i]),nomep[i])}
+circulo <- function(n.pontos=100,raio=1){
+  x <- runif(n.pontos,-1,1)
+  y <- runif(n.pontos,-1,1)
+  dentro <- x^2+y^2<raio^2
+  coordenadas <- as_tibble(t(rbind(x,y,dentro)))
+  grafico <- ggplot(data=coordenadas,aes(x=x,y=y)) +
+    geom_rect(xmin=-raio,xmax=raio, ymin=-raio,ymax=raio,alpha=0.1,fill='pink') +
+    geom_circle(aes(x0=0,y0=0,r=raio),fill='lightblue',alpha=0.02) +
+    geom_point()
+  area <- (2*raio)^2*sum(coordenadas$dentro)/n.pontos
+  return(list(area,grafico))
+  }
 
-# stopCluster(cluster)
+circulo()
+# Funciona, porém está bem lenta para n grande
+
+# Melhorando a velocidade da plotagem com a função `geom_scattermore`. Por ser escrita em C, promete ser bem mais rápida.
+# além disso, retornando o tibble com as coordenadas dos pontos.
+p_load(scattermore)
+
+circulo2 <- function(n.pontos=100,raio=1){
+  x <- runif(n.pontos,-1,1)
+  y <- runif(n.pontos,-1,1)
+  dentro <- x^2+y^2<raio^2
+  coordenadas <- as_tibble(t(rbind(x,y,dentro)))
+  assign("coordenadas", coordenadas, envir = .GlobalEnv) 
+  grafico <- ggplot(data=coordenadas,aes(x=x,y=y)) +
+    geom_rect(xmin=-raio,xmax=raio, ymin=-raio,ymax=raio,alpha=0.1,fill='pink') +
+    geom_circle(aes(x0=0,y0=0,r=raio),fill='lightblue',alpha=0.02) +
+    geom_scattermore(pointsize=1)
+  area <- (2*raio)^2*sum(coordenadas$dentro)/n.pontos
+  return(list(area,grafico))
+}
+
+circulo2(500,1)
+
+# Agora, pedi ao ChatGPT para otimizar a minha função. Este foi o resultado:
+
+circuloGPT <- function(n.pontos=100,raio=1){
+  theta <- runif(n.pontos,0,2*pi)
+  r <- sqrt(runif(n.pontos))*raio
+  x <- r * cos(theta)
+  y <- r * sin(theta)
+  
+  coordenadas <- tibble(x=x,y=y)
+  area <- pi*raio^2
+  
+  grafico <- plot(x, y, xlim = c(-raio, raio), ylim = c(-raio, raio), main = "Gráfico gerado pela função", xlab = "Eixo X", ylab = "Eixo Y")
+  
+  return(list(area,grafico))
+}
+circuloGPT(1000,1)
+# --------------------------------------------------------------------------- #
+
+# Testes
+
+n.pontos<-10000
+raio<-1
+x <- runif(n.pontos,-1,1)
+y <- runif(n.pontos,-1,1)
+dentro <- x^2+y^2<raio^2
+coordenadas <- as_tibble(t(rbind(x,y,dentro)))
+grafico <- ggplot(data=coordenadas,aes(x=x,y=y)) +
+#  geom_rect(xmin=-raio,xmax=raio, ymin=-raio,ymax=raio,alpha=0.1,fill='pink') +
+#  geom_circle(aes(x0=0,y0=0,r=raio),fill='lightblue',alpha=0.02) +
+  geom_scattermore(pointsize=1)
+grafico
+area <- (2*raio)^2*sum(coordenadas$dentro)/n.pontos
+
