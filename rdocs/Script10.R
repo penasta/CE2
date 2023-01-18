@@ -104,7 +104,8 @@ circulo2 <- function(n.pontos=100,raio=1){
   grafico <- ggplot(data=coordenadas,aes(x=x,y=y)) +
     geom_rect(xmin=-raio,xmax=raio, ymin=-raio,ymax=raio,alpha=0.1,fill='pink') +
     geom_circle(aes(x0=0,y0=0,r=raio),fill='lightblue',alpha=0.02) +
-    geom_scattermore(pointsize=1)
+    geom_scattermore(pointsize=1) +
+    coord_fixed()
   area <- (2*raio)^2*sum(coordenadas$dentro)/n.pontos
   return(list(area,grafico))
 }
