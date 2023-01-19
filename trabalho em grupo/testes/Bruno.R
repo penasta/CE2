@@ -34,14 +34,17 @@ page <- read_html(link_site)
 # E agora?
 
 url = "https://www.amazon.com.br/s?k=televisao&__mk_pt_BR=ÅMÅŽÕÑ&crid=2HKSX4UZ7J7QF&sprefix=televisao%2Caps%2C282&ref=nb_sb_noss_1"
-download.file(url, destfile = "scrapedpage.html", quiet=TRUE)
+download.file(url,
+              destfile = "scrapedpage.html",
+              quiet=TRUE)
 content <- read_html("scrapedpage.html")
 
 
 # E aí?
 
 p_load(curl)
-read_html(curl('https://www.amazon.com.br/s?k=televisao&__mk_pt_BR=ÅMÅŽÕÑ&crid=2HKSX4UZ7J7QF&sprefix=televisao%2Caps%2C282&ref=nb_sb_noss_1', handle = curl::new_handle("useragent" = "Mozilla/5.0")))
+read_html(curl('https://www.amazon.com.br/s?k=televisao&__mk_pt_BR=ÅMÅŽÕÑ&crid=2HKSX4UZ7J7QF&sprefix=televisao%2Caps%2C282&ref=nb_sb_noss_1',
+               handle = curl::new_handle("useragent" = "Mozilla/5.0")))
 
 # F
 

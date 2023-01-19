@@ -1,0 +1,125 @@
+---
+title: "Web Scraping"
+subtitle: "Trabalho final da disciplina de Computação em Estatística 2 (R)"
+author:
+  - name: Rafael de Acypreste
+    email: rafaeldeacyprestemr@gmail.com
+    url: https://rafaeldeacypreste.netlify.app/
+  - name: Bruno
+  - name: Lucas
+  - name: Lucas
+format:
+  revealjs: 
+    slide-number: true
+    chalkboard: 
+      buttons: true
+    preview-links: auto
+    scrollable: true
+    logo: images/quarto.png
+    theme: solarized
+    css: styles.css
+    footer: <https://unb.br/>
+resources:
+  - demo.pdf
+editor_options: 
+  chunk_output_type: console
+---
+
+## Web Scraping
+
+Web Scrapping é o processo de:
+
+::: incremental
+
+-   Investigar páginas
+-   Transformar texto em formato editável
+-   ...and much more
+:::
+
+## Pacotes necessários
+
+Para uma rotina básica de *web scraping*, os seguintes pacotes são interessantes: 
+
+```{r}
+#| echo: true
+
+if (!require("pacman")) install.packages("pacman")
+
+p_load(xml2,
+       rvest,    
+       tidyverse)  # Pacote para análise e manipulação de dados
+```
+
+
+
+## Exemplo simples {auto-animate="true"}
+
+
+-   Página de palavras aleatórias
+-   O objetivo é acessar estilos musicais
+
+
+```{.r code-line-numbers="1,3"}
+link_site <- "https://everynoise.com"
+
+page <- read_html(link_site)
+```
+
+## Exemplo simples {auto-animate="true"}
+
+
+-   Página de palavras aleatórias
+-   O objetivo é acessar estilos musicais
+
+
+```{.r code-line-numbers="5-7"}
+
+link_site <- "https://everynoise.com"
+
+page <- read_html(link_site)
+
+estilos <- page %>% 
+  html_nodes(".scanme") %>%
+  html_text()
+
+```
+
+
+## Exemplo simples {auto-animate="true"}
+
+::: columns
+::: {.column width="60%"}
+-   Página de palavras aleatórias
+-   O objetivo é acessar estilos musicais
+
+
+```{r}
+#| echo: true
+
+link_site <- "https://everynoise.com"
+
+page <- read_html(link_site)
+
+estilos <- page %>% 
+  html_nodes(".scanme") %>%
+  html_text()
+
+```
+
+:::
+
+::: {.column width="40%"}
+```{r}
+estilos
+```
+
+:::
+:::
+
+
+  
+
+::: footer
+Saiba mais: [Every Noise](https://everynoise.com)
+:::
+
