@@ -1,3 +1,6 @@
+
+# ---------------------------------------------------------------------------- #
+
 # CE2
 # Grupo 2
 # Webscrapping
@@ -64,8 +67,7 @@ titulos <- page %>%
   html_text()
 
 descricao_titulos <- page %>% 
-  html_nodes(".inline-edit-item-ano-fim+ p
-") %>%
+  html_nodes(".inline-edit-item-ano-fim+ p") %>%
   html_text()
 
 # Arrumando o texto utilizando o pacote stringr (expressões regulares)
@@ -99,7 +101,8 @@ linguas <- data.frame(idiomas,proeficiencia)
 lista <- list(descricao,formacao,linguas)
 assign(nome,lista)
 
-# Com isso, criamos uma lista que contém 3 objetos: o primeiro, uma string com a descrição;
+# Com isso, criamos uma lista com o nome do professor,
+# que contém 3 objetos: o primeiro, uma string com a descrição;
 # o segundo, um data frame com a formação
 # e o terceiro, um data frame com os idiomas.
 
