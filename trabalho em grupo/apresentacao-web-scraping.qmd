@@ -85,6 +85,7 @@ estilos <- page %>%
 ```
 
 
+
 ## Exemplo simples {auto-animate="true"}
 
 ::: columns
@@ -121,5 +122,12 @@ estilos
 
 ::: footer
 Saiba mais: [Every Noise](https://everynoise.com)
+:::
+
+## Site original
+
+
+::: {style="text-align: center; margin-top: 2em; font-size: 2em"}
+[Every Noise](https://everynoise.com){preview-link="true" style="text-align: center"}
 :::
 
