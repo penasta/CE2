@@ -25,6 +25,8 @@ editor_options:
   chunk_output_type: console
 ---
 
+# Introdução
+
 ## Web Scraping
 
 Web Scrapping é o processo de:
@@ -46,47 +48,19 @@ Para uma rotina básica de *web scraping*, os seguintes pacotes são interessant
 if (!require("pacman")) install.packages("pacman")
 
 p_load(xml2,
-       rvest,    
+       rvest,      # Pacote para acessar/analisar html  
        tidyverse)  # Pacote para análise e manipulação de dados
 ```
 
+## Exemplo simples
 
 
-## Exemplo simples {auto-animate="true"}
+::: {style="text-align: center; margin-top: 2em; font-size: 2em"}
+[*Site* original: Every Noise](https://everynoise.com){preview-link="true" style="text-align: center"}
+:::
 
 
--   Página de palavras aleatórias
--   O objetivo é acessar estilos musicais
-
-
-```{.r code-line-numbers="1,3"}
-link_site <- "https://everynoise.com"
-
-page <- read_html(link_site)
-```
-
-## Exemplo simples {auto-animate="true"}
-
-
--   Página de palavras aleatórias
--   O objetivo é acessar estilos musicais
-
-
-```{.r code-line-numbers="5-7"}
-
-link_site <- "https://everynoise.com"
-
-page <- read_html(link_site)
-
-estilos <- page %>% 
-  html_nodes(".scanme") %>%
-  html_text()
-
-```
-
-
-
-## Exemplo simples {auto-animate="true"}
+## Exemplo simples 
 
 ::: columns
 ::: {.column width="60%"}
@@ -118,16 +92,92 @@ estilos
 :::
 
 
-  
-
 ::: footer
 Saiba mais: [Every Noise](https://everynoise.com)
 :::
 
-## Site original
 
 
-::: {style="text-align: center; margin-top: 2em; font-size: 2em"}
-[Every Noise](https://everynoise.com){preview-link="true" style="text-align: center"}
+# Principais funções do pacote `rvest`
+
+## `read_html()` {auto-animate="true"}
+
+- A função `read_html()` converte um *webiste* em um objeto `XML`
+- É necessário fornecer uma `URL` objetivo e a função acessará o site coletará as informações
+
+```{.r code-line-numbers="3"}
+link_site <- "https://everynoise.com"
+
+page <- read_html(link_site)
+
+```
+
+## `html_nodes()` {auto-animate="true"}
+
+- A função `html_nodes()` extrai os nós (*nodes*) relevantes do objeto `XML`
+- É necessário indicar a classe de interesse, precedido de um "`.`"
+- O produto é uma lista com todos os nós encontrados
+
+```{.r code-line-numbers="5-6"}
+link_site <- "https://everynoise.com"
+
+page <- read_html(link_site)
+
+estilos <- page %>% 
+  html_nodes(".scanme") 
+```
+
+## `html_text()` {auto-animate="true"}
+
+
+
+::: columns
+::: {.column width="60%"}
+- A função `html_text()` extrai a informação de interesse
+
+```{.r code-line-numbers="7"}
+link_site <- "https://everynoise.com"
+
+page <- read_html(link_site)
+
+estilos <- page %>% 
+  html_nodes(".scanme") %>%
+  html_text()
+```
+
+
 :::
 
+::: {.column width="40%"}
+```{r}
+estilos
+```
+
+:::
+:::
+
+# Exemplo problemático
+
+## Restrições de acesso
+
+::: {style="text-align: center; margin-top: 2em; font-size: 1em"}
+```{r}
+#| echo: true
+#| error: true
+
+link_site <- "https://www.amazon.com.br/s?k=televisao&__mk_pt_BR=ÅMÅŽÕÑ&crid=2HKSX4UZ7J7QF&sprefix=televisao%2Caps%2C282&ref=nb_sb_noss_1"
+page <- read_html(link_site)
+
+```
+:::
+
+::: {style="text-align: center; margin-top: 3em; font-size: 1em"}
+```{r}
+#| echo: true
+#| error: true
+download.file(link_site,
+              destfile = "scrapedpage.html",
+              quiet    = TRUE)
+
+```
+:::
