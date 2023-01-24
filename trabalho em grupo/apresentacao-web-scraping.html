@@ -7,7 +7,7 @@
 <link href="apresentacao-web-scraping_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="apresentacao-web-scraping_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="apresentacao-web-scraping_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.2.269">
+  <meta name="generator" content="quarto-1.3.56">
 
   <meta name="author" content="Rafael de Acypreste">
   <meta name="author" content="Bruno Gondim Toledo">
@@ -465,10 +465,12 @@ Lucas
 <h2>Exemplo simples</h2>
 <div class="columns">
 <div class="column" style="width:60%;">
+<div style="font-size: .9em">
 <ul>
 <li>Página de palavras aleatoriamente distribuídas pela página, sendo elas o nome de diversos gêneros musicais</li>
 <li>O objetivo é raspar esses nomes da página, criando uma planilha com o nome dos gêneros</li>
 </ul>
+</div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>link_site <span class="ot">&lt;-</span> <span class="st">"https://everynoise.com"</span></span>
 <span id="cb2-2"><a href="#cb2-2"></a></span>
@@ -6444,7 +6446,7 @@ Lucas
 <h2 data-id="quarto-animate-title"><code>read_html()</code></h2>
 <ul>
 <li>A função <code>read_html()</code> converte um <em>webiste</em> em um objeto <code>XML</code></li>
-<li>É necessário fornecer uma <code>URL</code> objetivo e a função acessará o site coletará as informações</li>
+<li>É necessário fornecer uma <code>URL</code> objetivo e a função acessará o site e raspará as informações</li>
 </ul>
 <div class="sourceCode" id="cb4" data-code-line-numbers="3"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb4-1" class="hljs-ln-code"><a href="#cb4-1"></a>link_site <span class="ot">&lt;-</span> <span class="st">"https://everynoise.com"</span></span>
 <span id="cb4-2" class="hljs-ln-code"><a href="#cb4-2"></a></span>
@@ -12431,12 +12433,14 @@ Lucas
 </div>
 </div>
 </div>
-</section></section>
-<section id="é-necessário-ainda-uso-de-alguma-ferramenta-para-seleção-do-node-fragmento-do-html-de-interesse-na-raspagem.-para-tal-utilizamos-uma-extensão-de-navegador-o-selectorgadget-utilziado-no-navegador-opera-mas-disponível-para-diversos-navegadores." class="title-slide slide level1 center">
-<h1>É necessário ainda uso de alguma ferramenta para seleção do node (fragmento do HTML de interesse na raspagem). Para tal, utilizamos uma extensão de navegador, o SelectorGadget (Utilziado no navegador Opera, mas disponível para diversos navegadores.)</h1>
-
 </section>
-
+<section id="selectorgadget" class="slide level2">
+<h2>SelectorGadget</h2>
+<ul>
+<li>É necessário ainda uso de alguma ferramenta para seleção do node (fragmento do HTML de interesse na raspagem).</li>
+<li>Para tal, utilizamos uma extensão de navegador, o SelectorGadget (Utilizado no navegador Opera, mas disponível para diversos navegadores.)</li>
+</ul>
+</section></section>
 <section>
 <section id="exemplo-problemático" class="title-slide slide level1 center">
 <h1>Exemplo problemático</h1>
@@ -12459,7 +12463,7 @@ Lucas
 <span id="cb10-2"><a href="#cb10-2"></a>              <span class="at">destfile =</span> <span class="st">"scrapedpage.html"</span>,</span>
 <span id="cb10-3"><a href="#cb10-3"></a>              <span class="at">quiet    =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
-<pre><code>Error in download.file(link_site, destfile = "scrapedpage.html", quiet = TRUE): não foi possível abrir a URL 'https://www.amazon.com.br/s?k=televisao&amp;__mk_pt_BR=ÅMÅŽÕÑ&amp;crid=2HKSX4UZ7J7QF&amp;sprefix=televisao%2Caps%2C282&amp;ref=nb_sb_noss_1'</code></pre>
+<pre><code>Error in download.file(link_site, destfile = "scrapedpage.html", quiet = TRUE): cannot open URL 'https://www.amazon.com.br/s?k=televisao&amp;__mk_pt_BR=ÅMÅŽÕÑ&amp;crid=2HKSX4UZ7J7QF&amp;sprefix=televisao%2Caps%2C282&amp;ref=nb_sb_noss_1'</code></pre>
 </div>
 </div>
 </div>
