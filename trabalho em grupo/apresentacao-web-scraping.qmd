@@ -62,8 +62,13 @@ p_load(xml2,       # pacote para facilitar o trabalho com html e XML
 
 ::: columns
 ::: {.column width="60%"}
+
+::: {style="font-size: .9em"}
+
 -   Página de palavras aleatoriamente distribuídas pela página, sendo elas o nome de diversos gêneros musicais
 -   O objetivo é raspar esses nomes da página, criando uma planilha com o nome dos gêneros
+
+:::
 
 ```{r}
 #| echo: true
@@ -95,7 +100,7 @@ Saiba mais: [Every Noise](https://everynoise.com)
 ## `read_html()` {auto-animate="true"}
 
 -   A função `read_html()` converte um *webiste* em um objeto `XML`
--   É necessário fornecer uma `URL` objetivo e a função acessará o site coletará as informações
+-   É necessário fornecer uma `URL` objetivo e a função acessará o site e raspará as informações
 
 ``` {.r code-line-numbers="3"}
 link_site <- "https://everynoise.com"
@@ -142,7 +147,10 @@ estilos
 :::
 :::
 
-# É necessário ainda uso de alguma ferramenta para seleção do node (fragmento do HTML de interesse na raspagem). Para tal, utilizamos uma extensão de navegador, o SelectorGadget (Utilziado no navegador Opera, mas disponível para diversos navegadores.)
+## SelectorGadget
+
+- É necessário ainda uso de alguma ferramenta para seleção do node (fragmento do HTML de interesse na raspagem). 
+- Para tal, utilizamos uma extensão de navegador, o SelectorGadget (Utilizado no navegador Opera, mas disponível para diversos navegadores.)
 
 # Exemplo problemático
 
