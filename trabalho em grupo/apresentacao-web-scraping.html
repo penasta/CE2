@@ -7,10 +7,10 @@
 <link href="apresentacao-web-scraping_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="apresentacao-web-scraping_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="apresentacao-web-scraping_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.3.56">
+  <meta name="generator" content="quarto-1.2.269">
 
   <meta name="author" content="Rafael de Acypreste">
-  <meta name="author" content="Bruno">
+  <meta name="author" content="Bruno Gondim Toledo">
   <meta name="author" content="Lucas">
   <meta name="author" content="Lucas">
   <title>Web Scraping</title>
@@ -409,7 +409,10 @@
 </div>
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
-Bruno 
+Bruno Gondim Toledo 
+</div>
+<div class="quarto-title-author-email">
+<a href="mailto:bruno.gondim@aluno.unb.br">bruno.gondim@aluno.unb.br</a>
 </div>
 </div>
 <div class="quarto-title-author">
@@ -437,7 +440,7 @@ Lucas
 <ul>
 <li class="fragment">Investigar páginas</li>
 <li class="fragment">Transformar texto em formato editável</li>
-<li class="fragment">…and much more</li>
+<li class="fragment">…e muito mais!</li>
 </ul>
 </div>
 </section>
@@ -447,7 +450,7 @@ Lucas
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">"pacman"</span>)) <span class="fu">install.packages</span>(<span class="st">"pacman"</span>)</span>
 <span id="cb1-2"><a href="#cb1-2"></a></span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">p_load</span>(xml2,</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">p_load</span>(xml2,       <span class="co"># pacote para facilitar o trabalho com html e XML</span></span>
 <span id="cb1-4"><a href="#cb1-4"></a>       rvest,      <span class="co"># Pacote para acessar/analisar html  </span></span>
 <span id="cb1-5"><a href="#cb1-5"></a>       tidyverse)  <span class="co"># Pacote para análise e manipulação de dados</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -463,8 +466,8 @@ Lucas
 <div class="columns">
 <div class="column" style="width:60%;">
 <ul>
-<li>Página de palavras aleatórias</li>
-<li>O objetivo é acessar estilos musicais</li>
+<li>Página de palavras aleatoriamente distribuídas pela página, sendo elas o nome de diversos gêneros musicais</li>
+<li>O objetivo é raspar esses nomes da página, criando uma planilha com o nome dos gêneros</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>link_site <span class="ot">&lt;-</span> <span class="st">"https://everynoise.com"</span></span>
@@ -12429,6 +12432,11 @@ Lucas
 </div>
 </div>
 </section></section>
+<section id="é-necessário-ainda-uso-de-alguma-ferramenta-para-seleção-do-node-fragmento-do-html-de-interesse-na-raspagem.-para-tal-utilizamos-uma-extensão-de-navegador-o-selectorgadget-utilziado-no-navegador-opera-mas-disponível-para-diversos-navegadores." class="title-slide slide level1 center">
+<h1>É necessário ainda uso de alguma ferramenta para seleção do node (fragmento do HTML de interesse na raspagem). Para tal, utilizamos uma extensão de navegador, o SelectorGadget (Utilziado no navegador Opera, mas disponível para diversos navegadores.)</h1>
+
+</section>
+
 <section>
 <section id="exemplo-problemático" class="title-slide slide level1 center">
 <h1>Exemplo problemático</h1>
@@ -12451,7 +12459,7 @@ Lucas
 <span id="cb10-2"><a href="#cb10-2"></a>              <span class="at">destfile =</span> <span class="st">"scrapedpage.html"</span>,</span>
 <span id="cb10-3"><a href="#cb10-3"></a>              <span class="at">quiet    =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
-<pre><code>Error in download.file(link_site, destfile = "scrapedpage.html", quiet = TRUE): cannot open URL 'https://www.amazon.com.br/s?k=televisao&amp;__mk_pt_BR=ÅMÅŽÕÑ&amp;crid=2HKSX4UZ7J7QF&amp;sprefix=televisao%2Caps%2C282&amp;ref=nb_sb_noss_1'</code></pre>
+<pre><code>Error in download.file(link_site, destfile = "scrapedpage.html", quiet = TRUE): não foi possível abrir a URL 'https://www.amazon.com.br/s?k=televisao&amp;__mk_pt_BR=ÅMÅŽÕÑ&amp;crid=2HKSX4UZ7J7QF&amp;sprefix=televisao%2Caps%2C282&amp;ref=nb_sb_noss_1'</code></pre>
 </div>
 </div>
 </div>

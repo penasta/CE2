@@ -5,7 +5,8 @@ author:
   - name: Rafael de Acypreste
     email: rafaeldeacyprestemr@gmail.com
     url: https://rafaeldeacypreste.netlify.app/
-  - name: Bruno
+  - name: Bruno Gondim Toledo
+    email: bruno.gondim@aluno.unb.br
   - name: Lucas
   - name: Lucas
 format:
@@ -32,41 +33,37 @@ editor_options:
 Web Scrapping é o processo de:
 
 ::: incremental
-
 -   Investigar páginas
 -   Transformar texto em formato editável
--   ...and much more
+-   ...e muito mais!
 :::
 
 ## Pacotes necessários
 
-Para uma rotina básica de *web scraping*, os seguintes pacotes são interessantes: 
+Para uma rotina básica de *web scraping*, os seguintes pacotes são interessantes:
 
 ```{r}
 #| echo: true
 
 if (!require("pacman")) install.packages("pacman")
 
-p_load(xml2,
+p_load(xml2,       # pacote para facilitar o trabalho com html e XML
        rvest,      # Pacote para acessar/analisar html  
        tidyverse)  # Pacote para análise e manipulação de dados
 ```
 
 ## Exemplo simples
 
-
 ::: {style="text-align: center; margin-top: 2em; font-size: 2em"}
 [*Site* original: Every Noise](https://everynoise.com){preview-link="true" style="text-align: center"}
 :::
 
-
-## Exemplo simples 
+## Exemplo simples
 
 ::: columns
 ::: {.column width="60%"}
--   Página de palavras aleatórias
--   O objetivo é acessar estilos musicais
-
+-   Página de palavras aleatoriamente distribuídas pela página, sendo elas o nome de diversos gêneros musicais
+-   O objetivo é raspar esses nomes da página, criando uma planilha com o nome dos gêneros
 
 ```{r}
 #| echo: true
@@ -80,45 +77,39 @@ estilos <- page %>%
   html_text()
 
 ```
-
 :::
 
 ::: {.column width="40%"}
 ```{r}
 estilos
 ```
-
 :::
 :::
-
 
 ::: footer
 Saiba mais: [Every Noise](https://everynoise.com)
 :::
 
-
-
 # Principais funções do pacote `rvest`
 
 ## `read_html()` {auto-animate="true"}
 
-- A função `read_html()` converte um *webiste* em um objeto `XML`
-- É necessário fornecer uma `URL` objetivo e a função acessará o site coletará as informações
+-   A função `read_html()` converte um *webiste* em um objeto `XML`
+-   É necessário fornecer uma `URL` objetivo e a função acessará o site coletará as informações
 
-```{.r code-line-numbers="3"}
+``` {.r code-line-numbers="3"}
 link_site <- "https://everynoise.com"
 
 page <- read_html(link_site)
-
 ```
 
 ## `html_nodes()` {auto-animate="true"}
 
-- A função `html_nodes()` extrai os nós (*nodes*) relevantes do objeto `XML`
-- É necessário indicar a classe de interesse, precedido de um "`.`"
-- O produto é uma lista com todos os nós encontrados
+-   A função `html_nodes()` extrai os nós (*nodes*) relevantes do objeto `XML`
+-   É necessário indicar a classe de interesse, precedido de um "`.`"
+-   O produto é uma lista com todos os nós encontrados
 
-```{.r code-line-numbers="5-6"}
+``` {.r code-line-numbers="5-6"}
 link_site <- "https://everynoise.com"
 
 page <- read_html(link_site)
@@ -129,13 +120,11 @@ estilos <- page %>%
 
 ## `html_text()` {auto-animate="true"}
 
-
-
 ::: columns
 ::: {.column width="60%"}
-- A função `html_text()` extrai a informação de interesse
+-   A função `html_text()` extrai a informação de interesse
 
-```{.r code-line-numbers="7"}
+``` {.r code-line-numbers="7"}
 link_site <- "https://everynoise.com"
 
 page <- read_html(link_site)
@@ -144,17 +133,16 @@ estilos <- page %>%
   html_nodes(".scanme") %>%
   html_text()
 ```
-
-
 :::
 
 ::: {.column width="40%"}
 ```{r}
 estilos
 ```
+:::
+:::
 
-:::
-:::
+# É necessário ainda uso de alguma ferramenta para seleção do node (fragmento do HTML de interesse na raspagem). Para tal, utilizamos uma extensão de navegador, o SelectorGadget (Utilziado no navegador Opera, mas disponível para diversos navegadores.)
 
 # Exemplo problemático
 
