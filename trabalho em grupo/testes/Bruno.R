@@ -9,7 +9,7 @@
 # ---------------------------------------------------------------------------- #
 
 if (!require("pacman")) install.packages("pacman")
-p_load(xml2,rvest,tidyverse)
+pacman::p_load(xml2,rvest,tidyverse)
 
 # ---------------------------------------------------------------------------- #
 
