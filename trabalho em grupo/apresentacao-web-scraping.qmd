@@ -30,12 +30,14 @@ editor_options:
 
 ## Web Scraping
 
+::: {style="margin-top: 2em; font-size: 1.2em"}
 Web Scrapping é o processo de:
 
 ::: incremental
 -   Investigar páginas
 -   Transformar texto em formato editável
 -   ...e muito mais!
+:::
 :::
 
 ## Pacotes necessários
@@ -47,9 +49,9 @@ Para uma rotina básica de *web scraping*, os seguintes pacotes são interessant
 
 if (!require("pacman")) install.packages("pacman")
 
-p_load(xml2,       # pacote para facilitar o trabalho com html e XML
-       rvest,      # Pacote para acessar/analisar html  
-       tidyverse)  # Pacote para análise e manipulação de dados
+pacman::p_load(xml2,       # pacote para facilitar o trabalho com html e XML
+               rvest,      # Pacote para acessar/analisar html  
+               tidyverse)  # Pacote para análise e manipulação de dados
 ```
 
 ## Exemplo simples
@@ -149,8 +151,8 @@ estilos
 
 ## SelectorGadget
 
-- É necessário ainda uso de alguma ferramenta para seleção do node (fragmento do HTML de interesse na raspagem). 
-- Para tal, utilizamos uma extensão de navegador, o SelectorGadget (Utilizado no navegador Opera, mas disponível para diversos navegadores.)
+- É necessário ainda uso de alguma ferramenta para identificação e seleção do node (fragmento do HTML de interesse na raspagem). 
+- Para tal, utilizamos uma extensão de navegador, o `SelectorGadget` (Utilizado no navegador Opera, mas disponível para diversos navegadores.)
 
 # Exemplo problemático
 
@@ -177,3 +179,110 @@ download.file(link_site,
 
 ```
 :::
+
+
+# Exemplo prático
+
+Coleta de informações de currículos
+
+## Nome da pesquisadora
+
+Pode-se avaliar currículos disponibilizados no escavador.
+
+```{r}
+#| echo: fenced
+
+link_site <- "https://www.escavador.com/sobre/3499832/thais-carvalho-valadares-rodrigues"
+page <- read_html(link_site)
+
+nome <- page %>% 
+  html_nodes(".name") %>%
+  html_text()
+```
+
+::: {style="margin-top: 3em"}
+A pesquisadora indicada no currículo é: [`r nome`]{style="color:red"}.
+:::
+
+
+## Descrição
+
+```{r}
+#| echo: true
+
+descricao <- page %>% 
+  html_nodes("#usuario .-flushHorizontal p") %>%
+  html_text()
+
+```
+
+Com a coleta acima, tem-se a seguinte descrição:
+
+
+::: {style="margin-top: 3em; font-size: .8em; color:purple; text-align: right"}
+`r descricao`
+:::
+
+
+## Títulos
+
+```{r}
+#| echo: true
+
+titulos <- page %>% 
+  html_nodes(".inline-edit-item-formacao") %>%
+  html_text()
+
+```
+
+Com a coleta acima, há os seguintes títulos indicados:
+
+::: {style="font-size: 1.2em; color:purple; margin-top: 3em; text-align: right"}
+`r titulos`
+:::
+
+## Descrição dos títulos
+
+```{r}
+#| echo: true
+
+descricao_titulos <- page %>% 
+  html_nodes(".inline-edit-item-ano-fim+ p") %>%
+  html_text()
+
+```
+
+Com a coleta acima, tem-se a seguinte descrição dos títulos:
+
+::: {style="margin-top: 3em; font-size: .6em; color:purple; text-align: right"}
+`r descricao_titulos`
+:::
+
+
+## Idiomas e proficiência
+
+```{r}
+#| echo: true
+
+idiomas <- page %>% 
+  html_nodes("#idiomas .-likeH5") %>%
+  html_text()
+
+idiomas <- str_remove(idiomas, " ")
+
+proficiencia <- page %>% 
+  html_nodes("#idiomas .-likeH5+ p") %>%
+  html_text()
+
+```
+
+```{r}
+
+proficiencia <- str_replace_all(proficiencia, "[\\n]","")
+
+linguas <- tibble(idiomas, proficiencia)
+
+kableExtra::kbl(linguas)
+```
+
+
