@@ -35,9 +35,19 @@ Web Scrapping é o processo de:
 
 ::: incremental
 -   Investigar páginas
+-   Capturar textos disponíveis em *wesites*  
 -   Transformar texto em formato editável
--   ...e muito mais!
+-   ...e poupa tempo e falhas de *copiar e colar*!
 :::
+:::
+
+## Com qual finalidade? 
+
+
+::: {style="margin-top: 1.8em; font-size: 1.2em"}
+-   Páginas da web podem ser fonte interessante de [informações públicas]{style="color: red"} de algum fenômeno de interesse
+-   Pode-se coletar texto, fotos, vídeos a depender do propósito da investigação
+-   O material pode ser editado para análises [qualitativas e quantitativas]{style="color: blue"}
 :::
 
 ## Pacotes necessários
@@ -74,6 +84,7 @@ pacman::p_load(xml2,       # pacote para facilitar o trabalho com html e XML
 
 ```{r}
 #| echo: true
+#| cache: true
 
 link_site <- "https://everynoise.com"
 
@@ -86,6 +97,7 @@ estilos <- page %>%
 ```
 :::
 
+
 ::: {.column width="40%"}
 ```{r}
 estilos
@@ -97,11 +109,11 @@ estilos
 Saiba mais: [Every Noise](https://everynoise.com)
 :::
 
-# Principais funções do pacote `rvest`
+# Principais funções do pacote `rvest` e `xml2`
 
 ## `read_html()` {auto-animate="true"}
 
--   A função `read_html()` converte um *webiste* em um objeto `XML`
+-   A função `read_html()` pertence ao pacote `xml2` (que o pacote `rvest` toma emprestada) e converte um *webiste* em um objeto `XML`
 -   É necessário fornecer uma `URL` objetivo e a função acessará o site e raspará as informações
 
 ``` {.r code-line-numbers="3"}
@@ -151,8 +163,9 @@ estilos
 
 ## SelectorGadget
 
-- É necessário ainda uso de alguma ferramenta para identificação e seleção do node (fragmento do HTML de interesse na raspagem). 
-- Para tal, utilizamos uma extensão de navegador, o `SelectorGadget` (Utilizado no navegador Opera, mas disponível para diversos navegadores.)
+- É necessário ainda uso de alguma ferramenta para identificação e seleção do node (fragmento do HTML de interesse na raspagem)
+- Para tal, utilizamos uma extensão de navegador, o `SelectorGadget` (Utilizado no navegador Opera, mas disponível para diversos navegadores)
+- Como sites são atualizados constantemente, seu *script* pode ficar [obsoleto]{style="color: red"} rapidamente
 
 # Exemplo problemático
 
@@ -180,6 +193,16 @@ download.file(link_site,
 ```
 :::
 
+## Violação dos termos de uso
+
+- O acesso pode violar os *Terms of Service (ToS)* de alguns websites
+
+## Cuidados
+
+::: {style="margin-top: 1.8em; font-size: 1.2em"}
+- Lembre-se sempre de [dar crédito aos sites]{style="color: brown"} de origem
+- Evite fazer o download repetidamente do site: baixe uma vez e armazene o conteúdo (`cache`)
+:::
 
 # Exemplo prático
 
@@ -191,11 +214,12 @@ Pode-se avaliar currículos disponibilizados no escavador.
 
 ```{r}
 #| echo: fenced
+#| cache: true
 
 link_site <- "https://www.escavador.com/sobre/3499832/thais-carvalho-valadares-rodrigues"
-page <- read_html(link_site)
+page2 <- read_html(link_site)
 
-nome <- page %>% 
+nome <- page2 %>% 
   html_nodes(".name") %>%
   html_text()
 ```
@@ -205,12 +229,13 @@ A pesquisadora indicada no currículo é: [`r nome`]{style="color:red"}.
 :::
 
 
+
 ## Descrição
 
 ```{r}
 #| echo: true
 
-descricao <- page %>% 
+descricao <- page2 %>% 
   html_nodes("#usuario .-flushHorizontal p") %>%
   html_text()
 
@@ -229,7 +254,7 @@ Com a coleta acima, tem-se a seguinte descrição:
 ```{r}
 #| echo: true
 
-titulos <- page %>% 
+titulos <- page2 %>% 
   html_nodes(".inline-edit-item-formacao") %>%
   html_text()
 
@@ -246,7 +271,7 @@ Com a coleta acima, há os seguintes títulos indicados:
 ```{r}
 #| echo: true
 
-descricao_titulos <- page %>% 
+descricao_titulos <- page2 %>% 
   html_nodes(".inline-edit-item-ano-fim+ p") %>%
   html_text()
 
@@ -264,13 +289,13 @@ Com a coleta acima, tem-se a seguinte descrição dos títulos:
 ```{r}
 #| echo: true
 
-idiomas <- page %>% 
+idiomas <- page2 %>% 
   html_nodes("#idiomas .-likeH5") %>%
   html_text()
 
 idiomas <- str_remove(idiomas, " ")
 
-proficiencia <- page %>% 
+proficiencia <- page2 %>% 
   html_nodes("#idiomas .-likeH5+ p") %>%
   html_text()
 
@@ -285,4 +310,4 @@ linguas <- tibble(idiomas, proficiencia)
 kableExtra::kbl(linguas)
 ```
 
-
+# Aplicações avançadas

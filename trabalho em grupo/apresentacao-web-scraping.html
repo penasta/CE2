@@ -443,10 +443,22 @@ Lucas
 <div>
 <ul>
 <li class="fragment">Investigar páginas</li>
+<li class="fragment">Capturar textos disponíveis em <em>wesites</em><br>
+</li>
 <li class="fragment">Transformar texto em formato editável</li>
-<li class="fragment">…e muito mais!</li>
+<li class="fragment">…e poupa tempo e falhas de <em>copiar e colar</em>!</li>
 </ul>
 </div>
+</div>
+</section>
+<section id="com-qual-finalidade" class="slide level2">
+<h2>Com qual finalidade?</h2>
+<div style="margin-top: 1.8em; font-size: 1.2em">
+<ul>
+<li>Páginas da web podem ser fonte interessante de <span style="color: red">informações públicas</span> de algum fenômeno de interesse</li>
+<li>Pode-se coletar texto, fotos, vídeos a depender do propósito da investigação</li>
+<li>O material pode ser editado para análises <span style="color: blue">qualitativas e quantitativas</span></li>
+</ul>
 </div>
 </section>
 <section id="pacotes-necessários" class="slide level2">
@@ -476,7 +488,7 @@ Lucas
 <li>O objetivo é raspar esses nomes da página, criando uma planilha com o nome dos gêneros</li>
 </ul>
 </div>
-<div class="cell">
+<div class="cell" data-hash="apresentacao-web-scraping_cache/revealjs/unnamed-chunk-4_66c0610afeacda2198e447b085882fd6">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>link_site <span class="ot">&lt;-</span> <span class="st">"https://everynoise.com"</span></span>
 <span id="cb2-2"><a href="#cb2-2"></a></span>
 <span id="cb2-3"><a href="#cb2-3"></a>page <span class="ot">&lt;-</span> <span class="fu">read_html</span>(link_site)</span>
@@ -6453,14 +6465,14 @@ Lucas
 </div>
 </section></section>
 <section>
-<section id="principais-funções-do-pacote-rvest" class="title-slide slide level1 center">
-<h1>Principais funções do pacote <code>rvest</code></h1>
+<section id="principais-funções-do-pacote-rvest-e-xml2" class="title-slide slide level1 center">
+<h1>Principais funções do pacote <code>rvest</code> e <code>xml2</code></h1>
 
 </section>
 <section id="read_html" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title"><code>read_html()</code></h2>
 <ul>
-<li>A função <code>read_html()</code> converte um <em>webiste</em> em um objeto <code>XML</code></li>
+<li>A função <code>read_html()</code> pertence ao pacote <code>xml2</code> (que o pacote <code>rvest</code> toma emprestada) e converte um <em>webiste</em> em um objeto <code>XML</code></li>
 <li>É necessário fornecer uma <code>URL</code> objetivo e a função acessará o site e raspará as informações</li>
 </ul>
 <div class="sourceCode" id="cb4" data-code-line-numbers="3"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb4-1" class="hljs-ln-code"><a href="#cb4-1"></a>link_site <span class="ot">&lt;-</span> <span class="st">"https://everynoise.com"</span></span>
@@ -12462,8 +12474,9 @@ Lucas
 <section id="selectorgadget" class="slide level2">
 <h2>SelectorGadget</h2>
 <ul>
-<li>É necessário ainda uso de alguma ferramenta para identificação e seleção do node (fragmento do HTML de interesse na raspagem).</li>
-<li>Para tal, utilizamos uma extensão de navegador, o <code>SelectorGadget</code> (Utilizado no navegador Opera, mas disponível para diversos navegadores.)</li>
+<li>É necessário ainda uso de alguma ferramenta para identificação e seleção do node (fragmento do HTML de interesse na raspagem)</li>
+<li>Para tal, utilizamos uma extensão de navegador, o <code>SelectorGadget</code> (Utilizado no navegador Opera, mas disponível para diversos navegadores)</li>
+<li>Como sites são atualizados constantemente, seu <em>script</em> pode ficar <span style="color: red">obsoleto</span> rapidamente</li>
 </ul>
 </section></section>
 <section>
@@ -12492,6 +12505,21 @@ Lucas
 </div>
 </div>
 </div>
+</section>
+<section id="violação-dos-termos-de-uso" class="slide level2">
+<h2>Violação dos termos de uso</h2>
+<ul>
+<li>O acesso pode violar os <em>Terms of Service (ToS)</em> de alguns websites</li>
+</ul>
+</section>
+<section id="cuidados" class="slide level2">
+<h2>Cuidados</h2>
+<div style="margin-top: 1.8em; font-size: 1.2em">
+<ul>
+<li>Lembre-se sempre de <span style="color: brown">dar crédito aos sites</span> de origem</li>
+<li>Evite fazer o download repetidamente do site: baixe uma vez e armazene o conteúdo (<code>cache</code>)</li>
+</ul>
+</div>
 </section></section>
 <section>
 <section id="exemplo-prático" class="title-slide slide level1 center">
@@ -12501,15 +12529,17 @@ Lucas
 <section id="nome-da-pesquisadora" class="slide level2">
 <h2>Nome da pesquisadora</h2>
 <p>Pode-se avaliar currículos disponibilizados no escavador.</p>
-<div class="cell">
+<div class="cell" data-hash="apresentacao-web-scraping_cache/revealjs/unnamed-chunk-14_4d92187770d13b79aeb095ebb0825184">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb12-1"><a href="#cb12-1"></a><span class="in">```{r}</span></span>
-<span id="cb12-2"><a href="#cb12-2"></a>link_site <span class="ot">&lt;-</span> <span class="st">"https://www.escavador.com/sobre/3499832/thais-carvalho-valadares-rodrigues"</span></span>
-<span id="cb12-3"><a href="#cb12-3"></a>page <span class="ot">&lt;-</span> <span class="fu">read_html</span>(link_site)</span>
-<span id="cb12-4"><a href="#cb12-4"></a></span>
-<span id="cb12-5"><a href="#cb12-5"></a>nome <span class="ot">&lt;-</span> page <span class="sc">%&gt;%</span> </span>
-<span id="cb12-6"><a href="#cb12-6"></a>  <span class="fu">html_nodes</span>(<span class="st">".name"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb12-7"><a href="#cb12-7"></a>  <span class="fu">html_text</span>()</span>
-<span id="cb12-8"><a href="#cb12-8"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb12-2"><a href="#cb12-2"></a><span class="co">#| cache: true</span></span>
+<span id="cb12-3"><a href="#cb12-3"></a></span>
+<span id="cb12-4"><a href="#cb12-4"></a>link_site <span class="ot">&lt;-</span> <span class="st">"https://www.escavador.com/sobre/3499832/thais-carvalho-valadares-rodrigues"</span></span>
+<span id="cb12-5"><a href="#cb12-5"></a>page2 <span class="ot">&lt;-</span> <span class="fu">read_html</span>(link_site)</span>
+<span id="cb12-6"><a href="#cb12-6"></a></span>
+<span id="cb12-7"><a href="#cb12-7"></a>nome <span class="ot">&lt;-</span> page2 <span class="sc">%&gt;%</span> </span>
+<span id="cb12-8"><a href="#cb12-8"></a>  <span class="fu">html_nodes</span>(<span class="st">".name"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-9"><a href="#cb12-9"></a>  <span class="fu">html_text</span>()</span>
+<span id="cb12-10"><a href="#cb12-10"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div style="margin-top: 3em">
 <p>A pesquisadora indicada no currículo é: <span style="color:red">Thais Carvalho Valadares Rodrigues</span>.</p>
@@ -12518,7 +12548,7 @@ Lucas
 <section id="descrição" class="slide level2">
 <h2>Descrição</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>descricao <span class="ot">&lt;-</span> page <span class="sc">%&gt;%</span> </span>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>descricao <span class="ot">&lt;-</span> page2 <span class="sc">%&gt;%</span> </span>
 <span id="cb13-2"><a href="#cb13-2"></a>  <span class="fu">html_nodes</span>(<span class="st">"#usuario .-flushHorizontal p"</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb13-3"><a href="#cb13-3"></a>  <span class="fu">html_text</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -12530,7 +12560,7 @@ Lucas
 <section id="títulos" class="slide level2">
 <h2>Títulos</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>titulos <span class="ot">&lt;-</span> page <span class="sc">%&gt;%</span> </span>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>titulos <span class="ot">&lt;-</span> page2 <span class="sc">%&gt;%</span> </span>
 <span id="cb14-2"><a href="#cb14-2"></a>  <span class="fu">html_nodes</span>(<span class="st">".inline-edit-item-formacao"</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb14-3"><a href="#cb14-3"></a>  <span class="fu">html_text</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -12542,7 +12572,7 @@ Lucas
 <section id="descrição-dos-títulos" class="slide level2">
 <h2>Descrição dos títulos</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>descricao_titulos <span class="ot">&lt;-</span> page <span class="sc">%&gt;%</span> </span>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>descricao_titulos <span class="ot">&lt;-</span> page2 <span class="sc">%&gt;%</span> </span>
 <span id="cb15-2"><a href="#cb15-2"></a>  <span class="fu">html_nodes</span>(<span class="st">".inline-edit-item-ano-fim+ p"</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb15-3"><a href="#cb15-3"></a>  <span class="fu">html_text</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -12554,13 +12584,13 @@ Lucas
 <section id="idiomas-e-proficiência" class="slide level2">
 <h2>Idiomas e proficiência</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>idiomas <span class="ot">&lt;-</span> page <span class="sc">%&gt;%</span> </span>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>idiomas <span class="ot">&lt;-</span> page2 <span class="sc">%&gt;%</span> </span>
 <span id="cb16-2"><a href="#cb16-2"></a>  <span class="fu">html_nodes</span>(<span class="st">"#idiomas .-likeH5"</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb16-3"><a href="#cb16-3"></a>  <span class="fu">html_text</span>()</span>
 <span id="cb16-4"><a href="#cb16-4"></a></span>
 <span id="cb16-5"><a href="#cb16-5"></a>idiomas <span class="ot">&lt;-</span> <span class="fu">str_remove</span>(idiomas, <span class="st">" "</span>)</span>
 <span id="cb16-6"><a href="#cb16-6"></a></span>
-<span id="cb16-7"><a href="#cb16-7"></a>proficiencia <span class="ot">&lt;-</span> page <span class="sc">%&gt;%</span> </span>
+<span id="cb16-7"><a href="#cb16-7"></a>proficiencia <span class="ot">&lt;-</span> page2 <span class="sc">%&gt;%</span> </span>
 <span id="cb16-8"><a href="#cb16-8"></a>  <span class="fu">html_nodes</span>(<span class="st">"#idiomas .-likeH5+ p"</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb16-9"><a href="#cb16-9"></a>  <span class="fu">html_text</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -12588,11 +12618,14 @@ Lucas
 
 </div>
 </div>
+</section></section>
+<section id="aplicações-avançadas" class="title-slide slide level1 center">
+<h1>Aplicações avançadas</h1>
 
 <img src="images/quarto.png" class="slide-logo r-stretch"><div class="footer footer-default">
 <p><a href="https://unb.br/" class="uri">https://unb.br/</a></p>
 </div>
-</section></section>
+</section>
     </div>
   </div>
 
