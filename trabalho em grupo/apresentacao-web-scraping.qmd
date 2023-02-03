@@ -114,6 +114,7 @@ Saiba mais: [Every Noise](https://everynoise.com)
 ## `read_html()` {auto-animate="true"}
 
 -   A função `read_html()` pertence ao pacote `xml2` (que o pacote `rvest` toma emprestada) e converte um *webiste* em um objeto `XML`
+-   O formato `XML` tem uma estrutura que organiza a informação dentro nós aninhados (*tags*) 
 -   É necessário fornecer uma `URL` objetivo e a função acessará o site e raspará as informações
 
 ``` {.r code-line-numbers="3"}
@@ -217,6 +218,7 @@ Pode-se avaliar currículos disponibilizados no escavador.
 #| cache: true
 
 link_site <- "https://www.escavador.com/sobre/3499832/thais-carvalho-valadares-rodrigues"
+
 page2 <- read_html(link_site)
 
 nome <- page2 %>% 

@@ -6473,6 +6473,7 @@ Lucas
 <h2 data-id="quarto-animate-title"><code>read_html()</code></h2>
 <ul>
 <li>A função <code>read_html()</code> pertence ao pacote <code>xml2</code> (que o pacote <code>rvest</code> toma emprestada) e converte um <em>webiste</em> em um objeto <code>XML</code></li>
+<li>O formato <code>XML</code> tem uma estrutura que organiza a informação dentro nós aninhados (<em>tags</em>)</li>
 <li>É necessário fornecer uma <code>URL</code> objetivo e a função acessará o site e raspará as informações</li>
 </ul>
 <div class="sourceCode" id="cb4" data-code-line-numbers="3"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb4-1" class="hljs-ln-code"><a href="#cb4-1"></a>link_site <span class="ot">&lt;-</span> <span class="st">"https://everynoise.com"</span></span>
@@ -12529,17 +12530,18 @@ Lucas
 <section id="nome-da-pesquisadora" class="slide level2">
 <h2>Nome da pesquisadora</h2>
 <p>Pode-se avaliar currículos disponibilizados no escavador.</p>
-<div class="cell" data-hash="apresentacao-web-scraping_cache/revealjs/unnamed-chunk-14_4d92187770d13b79aeb095ebb0825184">
+<div class="cell" data-hash="apresentacao-web-scraping_cache/revealjs/unnamed-chunk-14_29301cfc92b242fbd2653b6027a14ebe">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb12-1"><a href="#cb12-1"></a><span class="in">```{r}</span></span>
 <span id="cb12-2"><a href="#cb12-2"></a><span class="co">#| cache: true</span></span>
 <span id="cb12-3"><a href="#cb12-3"></a></span>
 <span id="cb12-4"><a href="#cb12-4"></a>link_site <span class="ot">&lt;-</span> <span class="st">"https://www.escavador.com/sobre/3499832/thais-carvalho-valadares-rodrigues"</span></span>
-<span id="cb12-5"><a href="#cb12-5"></a>page2 <span class="ot">&lt;-</span> <span class="fu">read_html</span>(link_site)</span>
-<span id="cb12-6"><a href="#cb12-6"></a></span>
-<span id="cb12-7"><a href="#cb12-7"></a>nome <span class="ot">&lt;-</span> page2 <span class="sc">%&gt;%</span> </span>
-<span id="cb12-8"><a href="#cb12-8"></a>  <span class="fu">html_nodes</span>(<span class="st">".name"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb12-9"><a href="#cb12-9"></a>  <span class="fu">html_text</span>()</span>
-<span id="cb12-10"><a href="#cb12-10"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb12-5"><a href="#cb12-5"></a></span>
+<span id="cb12-6"><a href="#cb12-6"></a>page2 <span class="ot">&lt;-</span> <span class="fu">read_html</span>(link_site)</span>
+<span id="cb12-7"><a href="#cb12-7"></a></span>
+<span id="cb12-8"><a href="#cb12-8"></a>nome <span class="ot">&lt;-</span> page2 <span class="sc">%&gt;%</span> </span>
+<span id="cb12-9"><a href="#cb12-9"></a>  <span class="fu">html_nodes</span>(<span class="st">".name"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-10"><a href="#cb12-10"></a>  <span class="fu">html_text</span>()</span>
+<span id="cb12-11"><a href="#cb12-11"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div style="margin-top: 3em">
 <p>A pesquisadora indicada no currículo é: <span style="color:red">Thais Carvalho Valadares Rodrigues</span>.</p>
