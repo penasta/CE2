@@ -18,6 +18,7 @@ format:
     scrollable: true
     logo: images/quarto.png
     theme: solarized
+    width: 1500
     css: styles.css
     footer: <https://unb.br/>
 resources:
@@ -59,9 +60,10 @@ Para uma rotina básica de *web scraping*, os seguintes pacotes são interessant
 
 if (!require("pacman")) install.packages("pacman")
 
-pacman::p_load(xml2,       # pacote para facilitar o trabalho com html e XML
-               rvest,      # Pacote para acessar/analisar html  
-               tidyverse)  # Pacote para análise e manipulação de dados
+pacman::p_load(xml2,       # Facilitar o trabalho com html e XML
+               rvest,      # Acessar/analisar html  
+               polite,     # Consumir informações de maneira responsável
+               tidyverse)  # Análise e manipulação de dados
 ```
 
 ## Exemplo simples
@@ -73,7 +75,7 @@ pacman::p_load(xml2,       # pacote para facilitar o trabalho com html e XML
 ## Exemplo simples
 
 ::: columns
-::: {.column width="60%"}
+::: {.column width="65%"}
 
 ::: {style="font-size: .9em"}
 
@@ -83,7 +85,7 @@ pacman::p_load(xml2,       # pacote para facilitar o trabalho com html e XML
 :::
 
 ```{r}
-#| echo: true
+#| echo: fenced
 #| cache: true
 
 link_site <- "https://everynoise.com"
@@ -98,7 +100,7 @@ estilos <- page %>%
 :::
 
 
-::: {.column width="40%"}
+::: {.column width="35%"}
 ```{r}
 estilos
 ```
@@ -109,7 +111,7 @@ estilos
 Saiba mais: [Every Noise](https://everynoise.com)
 :::
 
-# Principais funções do pacote `rvest` e `xml2`
+# Principais funções do pacote `rvest` (páginas estáticas) e `xml2`
 
 ## `read_html()` {auto-animate="true"}
 
@@ -205,6 +207,35 @@ download.file(link_site,
 - Evite fazer o download repetidamente do site: baixe uma vez e armazene o conteúdo (`cache`)
 :::
 
+## `Polite` package
+
+::: columns
+::: {.column width="60%"}
+- Permite acessar as páginas de maneira responsável
+- `bow()` introduz o cliente ao *host* e pede permissão para *raspar*
+- `scrape()` acessa as informações do site
+- Os resultados em *cache* para que nunca acessar a página novamente
+:::
+
+::: {.column width="40%"}
+```{r}
+#| echo: true
+
+link_site <- bow("https://everynoise.com", force = TRUE)
+
+estilos2 <- scrape(link_site) |> 
+  html_nodes(".scanme") %>%
+  html_text()
+```
+
+```{r}
+estilos2
+```
+:::
+:::
+
+
+
 # Exemplo prático
 
 Coleta de informações de currículos
@@ -214,12 +245,12 @@ Coleta de informações de currículos
 Pode-se avaliar currículos disponibilizados no escavador.
 
 ```{r}
-#| echo: fenced
+#| echo: true
 #| cache: true
 
-link_site <- "https://www.escavador.com/sobre/3499832/thais-carvalho-valadares-rodrigues"
+link_site <- bow("https://www.escavador.com/sobre/3499832/thais-carvalho-valadares-rodrigues", force = TRUE)
 
-page2 <- read_html(link_site)
+page2 <- scrape(link_site)
 
 nome <- page2 %>% 
   html_nodes(".name") %>%
@@ -313,3 +344,8 @@ kableExtra::kbl(linguas)
 ```
 
 # Aplicações avançadas
+
+
+## Exemplos (ChatGPT)
+
+![](images/chatgpt.PNG){.absolute top="100" left="100" width="1200" height="600"}
