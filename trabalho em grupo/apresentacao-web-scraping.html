@@ -18516,14 +18516,15 @@ Lucas
 <section id="nome-da-pesquisadora" class="slide level2">
 <h2>Nome da pesquisadora</h2>
 <p>Pode-se avaliar currículos disponibilizados no escavador.</p>
-<div class="cell" data-hash="apresentacao-web-scraping_cache/revealjs/unnamed-chunk-18_031e5b53eaa803821f32fb5e03fb9fff">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>link_site <span class="ot">&lt;-</span> <span class="fu">bow</span>(<span class="st">"https://www.escavador.com/sobre/3499832/thais-carvalho-valadares-rodrigues"</span>, <span class="at">force =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb14-2"><a href="#cb14-2"></a></span>
-<span id="cb14-3"><a href="#cb14-3"></a>page2 <span class="ot">&lt;-</span> <span class="fu">scrape</span>(link_site)</span>
-<span id="cb14-4"><a href="#cb14-4"></a></span>
-<span id="cb14-5"><a href="#cb14-5"></a>nome <span class="ot">&lt;-</span> page2 <span class="sc">%&gt;%</span> </span>
-<span id="cb14-6"><a href="#cb14-6"></a>  <span class="fu">html_nodes</span>(<span class="st">".name"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb14-7"><a href="#cb14-7"></a>  <span class="fu">html_text</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>link_site <span class="ot">&lt;-</span> <span class="fu">bow</span>(<span class="st">"https://www.escavador.com/sobre/3499832/thais-carvalho-valadares-rodrigues"</span>,</span>
+<span id="cb14-2"><a href="#cb14-2"></a>                 <span class="at">force =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb14-3"><a href="#cb14-3"></a></span>
+<span id="cb14-4"><a href="#cb14-4"></a>page2 <span class="ot">&lt;-</span> <span class="fu">scrape</span>(link_site)</span>
+<span id="cb14-5"><a href="#cb14-5"></a></span>
+<span id="cb14-6"><a href="#cb14-6"></a>nome <span class="ot">&lt;-</span> page2 <span class="sc">%&gt;%</span> </span>
+<span id="cb14-7"><a href="#cb14-7"></a>  <span class="fu">html_nodes</span>(<span class="st">".name"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb14-8"><a href="#cb14-8"></a>  <span class="fu">html_text</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div style="margin-top: 3em">
 <p>A pesquisadora indicada no currículo é: <span style="color:red">Thais Carvalho Valadares Rodrigues</span>.</p>
@@ -18611,8 +18612,102 @@ Lucas
 <section id="exemplos-chatgpt" class="slide level2">
 <h2>Exemplos (ChatGPT)</h2>
 <p><img data-src="images/chatgpt.PNG" class="absolute" style="top: 100px; left: 100px; width: 1200px; height: 600px; "></p>
-<p><img src="images/quarto.png" class="slide-logo"></p>
-<div class="footer footer-default">
+</section>
+<section id="tripadvisor" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Tripadvisor</h2>
+<div style="text-align: center; margin-top: 2em; font-size: 2em">
+<p><a href="https://www.tripadvisor.com.br/Restaurants-g303576-Florianopolis_State_of_Santa_Catarina.html" data-preview-link="true" style="text-align: center"><em>Site</em> original: Trip Advisor</a></p>
+</div>
+</section>
+<section id="tripadvisor-1" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Tripadvisor</h2>
+<div class="columns">
+<div class="column" style="width:55%;">
+<div style="font-size: .9em">
+<ul>
+<li>O Objetivo aqui era ver quais restaurante disponíveis existiam e algumas informações pertinentes de cada um, que ajudariam na decisão.</li>
+<li>Tendo essa ideia em mente, vamos coletar o nome, o tipo de culinária, o link do restaurante e as suas respectivas avaliações.</li>
+<li>Além disso, é possível coletar os comentários e fazer uma análise de sentimento quanto a comida de cada um dos restaurantes.</li>
+</ul>
+</div>
+</div><div class="column" style="width:5%;">
+
+</div><div class="column" style="width:40%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb19-1" class="hljs-ln-code"><a href="#cb19-1"></a><span class="co">#LINK DO SITE A SER RASPADO:</span></span>
+<span id="cb19-2" class="hljs-ln-code"><a href="#cb19-2"></a>link <span class="ot">&lt;-</span> <span class="st">"https://www.tripadvisor.com.br/Restaurants-g303576-Florianopolis_State_of_Santa_Catarina.html"</span></span>
+<span id="cb19-3" class="hljs-ln-code"><a href="#cb19-3"></a></span>
+<span id="cb19-4" class="hljs-ln-code"><a href="#cb19-4"></a><span class="co">#gerando a pagina do link ( formato de lista ):</span></span>
+<span id="cb19-5" class="hljs-ln-code"><a href="#cb19-5"></a>page_advisor <span class="ot">&lt;-</span> <span class="fu">read_html</span>(link)</span>
+<span id="cb19-6" class="hljs-ln-code"><a href="#cb19-6"></a></span>
+<span id="cb19-7" class="hljs-ln-code"><a href="#cb19-7"></a><span class="co"># NOMES DOS RESTAURANTES</span></span>
+<span id="cb19-8" class="hljs-ln-code"><a href="#cb19-8"></a>nomes <span class="ot">&lt;-</span> page_advisor <span class="sc">%&gt;%</span> </span>
+<span id="cb19-9" class="hljs-ln-code"><a href="#cb19-9"></a>  <span class="fu">html_nodes</span>(<span class="st">".Lwqic"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb19-10" class="hljs-ln-code"><a href="#cb19-10"></a>  <span class="fu">html_text</span>()</span>
+<span id="cb19-11" class="hljs-ln-code"><a href="#cb19-11"></a></span>
+<span id="cb19-12" class="hljs-ln-code"><a href="#cb19-12"></a><span class="co">#TIPO DE CULINÁRIA</span></span>
+<span id="cb19-13" class="hljs-ln-code"><a href="#cb19-13"></a>Culinaria <span class="ot">&lt;-</span> page_advisor <span class="sc">%&gt;%</span> </span>
+<span id="cb19-14" class="hljs-ln-code"><a href="#cb19-14"></a>  <span class="fu">html_nodes</span>(<span class="st">".bAdrM .qAvoV:nth-child(1) .ABgbd"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb19-15" class="hljs-ln-code"><a href="#cb19-15"></a>  <span class="fu">html_text</span>()</span>
+<span id="cb19-16" class="hljs-ln-code"><a href="#cb19-16"></a></span>
+<span id="cb19-17" class="hljs-ln-code"><a href="#cb19-17"></a><span class="co"># AVALIAÇÂO</span></span>
+<span id="cb19-18" class="hljs-ln-code"><a href="#cb19-18"></a>rating <span class="ot">&lt;-</span> page_advisor <span class="sc">%&gt;%</span> </span>
+<span id="cb19-19" class="hljs-ln-code"><a href="#cb19-19"></a>  <span class="fu">html_nodes</span>(<span class="st">".IiChw"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb19-20" class="hljs-ln-code"><a href="#cb19-20"></a>  <span class="fu">html_text</span>()</span>
+<span id="cb19-21" class="hljs-ln-code"><a href="#cb19-21"></a></span>
+<span id="cb19-22" class="hljs-ln-code"><a href="#cb19-22"></a><span class="co"># PREÇO MEDIO DO RESTAURANTE</span></span>
+<span id="cb19-23" class="hljs-ln-code"><a href="#cb19-23"></a>links_rest <span class="ot">&lt;-</span> page_advisor <span class="sc">%&gt;%</span> </span>
+<span id="cb19-24" class="hljs-ln-code"><a href="#cb19-24"></a>  <span class="fu">html_nodes</span>(<span class="st">".Lwqic"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb19-25" class="hljs-ln-code"><a href="#cb19-25"></a>  <span class="fu">html_attr</span>(<span class="st">"href"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb19-26" class="hljs-ln-code"><a href="#cb19-26"></a>  <span class="fu">paste</span>(<span class="st">"https://www.tripadvisor.com.br"</span>,.,<span class="at">sep=</span><span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="tripadvisor-2" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Tripadvisor</h2>
+<ul>
+<li>Ainda podemos ir mais longe Com as informações triviais de cada restaurante ja coletadas</li>
+<li>Agora o objetivo é entrar em cada uma das páginas dos restaurantes e coletar informações mais restritas de cada um</li>
+<li>Agora que temos os link, vamos coletar comentários feitos por antigos clientes e suas respectivas margens de preço</li>
+<li>Para isso, criamos algumas funções que vão nos auxiliar a entrar em cada hiperlink encontrado nos nomes dos restaurantes na página do Trip Advisor e retirar as informações que queremos</li>
+</ul>
+</section>
+<section id="tripadvisor-3" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Tripadvisor</h2>
+<p>::: columns ::: {.column width=“48%”}</p>
+<ul>
+<li>A primeira função retira a avaliação (<code>get_rate</code>)</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>get_rate <span class="ot">&lt;-</span>  <span class="cf">function</span>(links_rest) {</span>
+<span id="cb20-2"><a href="#cb20-2"></a>  page_rest <span class="ot">&lt;-</span> <span class="fu">read_html</span>(links_rest)</span>
+<span id="cb20-3"><a href="#cb20-3"></a>  reviews <span class="ot">&lt;-</span> page_rest <span class="sc">%&gt;%</span></span>
+<span id="cb20-4"><a href="#cb20-4"></a>    <span class="fu">html_nodes</span>(<span class="st">".BMlpu div:nth-child(1) .SrqKb"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb20-5"><a href="#cb20-5"></a>    <span class="fu">html_text</span>()</span>
+<span id="cb20-6"><a href="#cb20-6"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>:::</p>
+<div class="column" style="width:4%;">
+
+</div>
+<div class="column" style="width:48%;">
+<ul>
+<li>A segunda funçao retira as palavras mais pertinentes dos comentários (<code>get_reviews</code>)</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>get_reviews <span class="ot">&lt;-</span>  <span class="cf">function</span>(links_rest) {</span>
+<span id="cb21-2"><a href="#cb21-2"></a>  page_rest <span class="ot">&lt;-</span> <span class="fu">read_html</span>(links_rest)</span>
+<span id="cb21-3"><a href="#cb21-3"></a>  reviews <span class="ot">&lt;-</span> page_rest <span class="sc">%&gt;%</span></span>
+<span id="cb21-4"><a href="#cb21-4"></a>    <span class="fu">html_nodes</span>(<span class="st">".noQuotes"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb21-5"><a href="#cb21-5"></a>    <span class="fu">html_text</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb21-6"><a href="#cb21-6"></a>    <span class="fu">paste</span>(<span class="at">collapse =</span> <span class="st">" | "</span>)</span>
+<span id="cb21-7"><a href="#cb21-7"></a>  </span>
+<span id="cb21-8"><a href="#cb21-8"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+
+<img src="images/quarto.png" class="slide-logo r-stretch"><div class="footer footer-default">
 <p><a href="https://unb.br/" class="uri">https://unb.br/</a></p>
 </div>
 </section></section>
