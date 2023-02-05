@@ -246,9 +246,9 @@ Pode-se avaliar currículos disponibilizados no escavador.
 
 ```{r}
 #| echo: true
-#| cache: true
 
-link_site <- bow("https://www.escavador.com/sobre/3499832/thais-carvalho-valadares-rodrigues", force = TRUE)
+link_site <- bow("https://www.escavador.com/sobre/3499832/thais-carvalho-valadares-rodrigues",
+                 force = TRUE)
 
 page2 <- scrape(link_site)
 
@@ -349,3 +349,173 @@ kableExtra::kbl(linguas)
 ## Exemplos (ChatGPT)
 
 ![](images/chatgpt.PNG){.absolute top="100" left="100" width="1200" height="600"}
+
+## Tripadvisor {auto-animate="true"}
+
+::: {style="text-align: center; margin-top: 2em; font-size: 2em"}
+[*Site* original: Trip Advisor](https://www.tripadvisor.com.br/Restaurants-g303576-Florianopolis_State_of_Santa_Catarina.html){preview-link="true" style="text-align: center"}
+:::
+
+## Tripadvisor {auto-animate="true"}
+
+::: columns
+::: {.column width="55%"}
+::: {style="font-size: .9em"}
+-   O Objetivo aqui era ver quais restaurante disponíveis existiam e algumas informações pertinentes de cada um, que ajudariam na decisão.
+-   Tendo essa ideia em mente, vamos coletar o nome, o tipo de culinária, o link do restaurante e as suas respectivas avaliações.
+-   Além disso, é possível coletar os comentários e fazer uma análise de sentimento quanto a comida de cada um dos restaurantes.
+:::
+:::
+
+::: {.column width="5%"}
+:::
+
+::: {.column width="40%"}
+```{r}
+#| echo: true
+
+#LINK DO SITE A SER RASPADO:
+link <- "https://www.tripadvisor.com.br/Restaurants-g303576-Florianopolis_State_of_Santa_Catarina.html"
+
+#gerando a pagina do link ( formato de lista ):
+page_advisor <- read_html(link)
+
+# NOMES DOS RESTAURANTES
+nomes <- page_advisor %>% 
+  html_nodes(".Lwqic") %>%
+  html_text()
+
+#TIPO DE CULINÁRIA
+Culinaria <- page_advisor %>% 
+  html_nodes(".bAdrM .qAvoV:nth-child(1) .ABgbd") %>%
+  html_text()
+
+# AVALIAÇÂO
+rating <- page_advisor %>% 
+  html_nodes(".IiChw") %>%
+  html_text()
+
+# PREÇO MEDIO DO RESTAURANTE
+links_rest <- page_advisor %>% 
+  html_nodes(".Lwqic") %>%
+  html_attr("href") %>%
+  paste("https://www.tripadvisor.com.br",.,sep="")
+
+```
+:::
+:::
+
+## Tripadvisor {auto-animate="true"}
+
+-   Ainda podemos ir mais longe Com as informações triviais de cada restaurante ja coletadas
+-   Agora o objetivo é entrar em cada uma das páginas dos restaurantes e coletar informações mais restritas de cada um
+-   Agora que temos os link, vamos coletar comentários feitos por antigos clientes e suas respectivas margens de preço
+-   Para isso, criamos algumas funções que vão nos auxiliar a entrar em cada hiperlink encontrado nos nomes dos restaurantes na página do Trip Advisor e retirar as informações que queremos
+
+## Tripadvisor {auto-animate="true"}
+
+::: columns
+::: {.column width="48%"}
+
+-   A primeira função retira a avaliação (`get_rate`)
+```{r}
+#| echo: true
+get_rate <-  function(links_rest) {
+  page_rest <- read_html(links_rest)
+  reviews <- page_rest %>%
+    html_nodes(".BMlpu div:nth-child(1) .SrqKb") %>%
+    html_text()
+}
+
+```
+:::
+
+::: {.column width="4%"}
+:::
+
+::: {.column width="48%"}
+
+-   A segunda funçao retira as palavras mais pertinentes dos comentários (`get_reviews`)
+```{r}
+#| echo: true
+get_reviews <-  function(links_rest) {
+  page_rest <- read_html(links_rest)
+  reviews <- page_rest %>%
+    html_nodes(".noQuotes") %>%
+    html_text() %>%
+    paste(collapse = " | ")
+  
+}
+
+```
+:::
+:::
+
+## Tripadvisor {auto-animate="true"}
+
+::: columns
+::: {.column width="48%"}
+-  Com as funções prontas para uso, temos duas opções: usar o `for` para fazer o loop e buscar todas as informações dentro do conjunto de links que temos ou utilizar a função `sapply`, que nesse caso seria melhor pelo seu baixo uso computacional.
+
+```{r}
+#| echo: true
+  
+rate <- sapply(links_rest,
+               FUN       = get_rate,
+               USE.NAMES = FALSE)
+
+reviews <- sapply(links_rest,
+                  FUN       = get_reviews,
+                  USE.NAMES = FALSE)
+
+```
+:::
+
+::: {.column width="4%"}
+:::
+
+::: {.column width="48%"}
+
+```{r}
+head(rate)
+head(reviews)
+```
+
+
+:::
+:::
+
+
+
+
+## Tripadvisor {auto-animate="true"}
+
+
+
+::: columns
+::: {.column width="48%"}
+
+-   É possível que alguns erros ocorram nessa parte do processo, pois todas as informações a serem retiradas devem existir em todas as páginas da nossa lista de links. Caso não aconteça o script vai ficar rodando infinitamente atrás da informação que não existe na página.
+-  Por fim, a partir do momento em que todas as informações necessárias são coletadas, basta alocar todas em um único conjunto de dados.
+
+```{r}
+#| echo: true
+
+Restaurante <- data.frame(nome, Culinaria, rating, link_rest, reviews)
+
+```
+:::
+
+::: {.column width="4%"}
+:::
+
+::: {.column width="48%"}
+
+
+```{r}
+head(Restaurante)
+
+```
+:::
+:::
+
