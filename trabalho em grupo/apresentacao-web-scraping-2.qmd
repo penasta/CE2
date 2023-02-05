@@ -1,0 +1,567 @@
+---
+title: "Web Scraping"
+subtitle: "Trabalho final da disciplina de Computação em Estatística 2 (R)"
+author:
+  - name: Rafael de Acypreste
+    email: rafaeldeacyprestemr@gmail.com
+    url: https://rafaeldeacypreste.netlify.app/
+  - name: Bruno Gondim Toledo
+    email: bruno.gondim@aluno.unb.br
+  - name: Lucas Menezes 
+    email: lucca-menezes@hotmail.com
+  - name: Lucas
+format:
+  revealjs: 
+    slide-number: true
+    chalkboard: 
+      buttons: true
+    preview-links: auto
+    scrollable: true
+    logo: images/quarto.png
+    theme: solarized
+    width: 1500
+    css: styles.css
+    footer: <https://unb.br/>
+resources:
+  - demo.pdf
+editor_options: 
+  chunk_output_type: console
+---
+
+# Introdução
+
+## Web Scraping
+
+::: {style="margin-top: 2em; font-size: 1.2em"}
+Web Scrapping é o processo de:
+
+::: incremental
+-   Investigar páginas
+-   Capturar textos disponíveis em *wesites*  
+-   Transformar texto em formato editável
+-   ...e poupa tempo e falhas de *copiar e colar*!
+:::
+:::
+
+## Com qual finalidade? 
+
+
+::: {style="margin-top: 1.8em; font-size: 1.2em"}
+-   Páginas da web podem ser fonte interessante de [informações públicas]{style="color: red"} de algum fenômeno de interesse
+-   Pode-se coletar texto, fotos, vídeos a depender do propósito da investigação
+-   O material pode ser editado para análises [qualitativas e quantitativas]{style="color: blue"}
+:::
+
+## Pacotes necessários
+
+Para uma rotina básica de *web scraping*, os seguintes pacotes são interessantes:
+
+```{r}
+#| echo: true
+
+if (!require("pacman")) install.packages("pacman")
+
+pacman::p_load(xml2,       # Facilitar o trabalho com html e XML
+               rvest,      # Acessar/analisar html  
+               magrittr,
+               polite,     # Consumir informações de maneira responsável
+               tidyverse)  # Análise e manipulação de dados
+```
+
+## Exemplo simples
+
+::: {style="text-align: center; margin-top: 2em; font-size: 2em"}
+[*Site* original: Every Noise](https://everynoise.com){preview-link="true" style="text-align: center"}
+:::
+
+## Exemplo simples
+
+::: columns
+::: {.column width="65%"}
+
+::: {style="font-size: .9em"}
+
+-   Página de palavras aleatoriamente distribuídas pela página, sendo elas o nome de diversos gêneros musicais
+-   O objetivo é raspar esses nomes da página, criando uma planilha com o nome dos gêneros
+
+:::
+
+```{r}
+#| echo: fenced
+#| cache: true
+
+link_site <- "https://everynoise.com"
+
+page <- read_html(link_site)
+
+estilos <- page %>% 
+  html_nodes(".scanme") %>%
+  html_text()
+
+```
+:::
+
+
+::: {.column width="35%"}
+```{r}
+estilos
+```
+:::
+:::
+
+::: footer
+Saiba mais: [Every Noise](https://everynoise.com)
+:::
+
+# Principais funções do pacote `rvest` (páginas estáticas) e `xml2`
+
+## `read_html()` {auto-animate="true"}
+
+-   A função `read_html()` pertence ao pacote `xml2` (que o pacote `rvest` toma emprestada) e converte um *webiste* em um objeto `XML`
+-   O formato `XML` tem uma estrutura que organiza a informação dentro nós aninhados (*tags*) 
+-   É necessário fornecer uma `URL` objetivo e a função acessará o site e raspará as informações
+
+``` {.r code-line-numbers="3"}
+link_site <- "https://everynoise.com"
+
+page <- read_html(link_site)
+```
+
+## `html_nodes()` {auto-animate="true"}
+
+-   A função `html_nodes()` extrai os nós (*nodes*) relevantes do objeto `XML`
+-   É necessário indicar a classe de interesse, precedido de um "`.`"
+-   O produto é uma lista com todos os nós encontrados
+
+``` {.r code-line-numbers="5-6"}
+link_site <- "https://everynoise.com"
+
+page <- read_html(link_site)
+
+estilos <- page %>% 
+  html_nodes(".scanme") 
+```
+
+## `html_text()` {auto-animate="true"}
+
+::: columns
+::: {.column width="60%"}
+-   A função `html_text()` extrai a informação de interesse
+
+``` {.r code-line-numbers="7"}
+link_site <- "https://everynoise.com"
+
+page <- read_html(link_site)
+
+estilos <- page %>% 
+  html_nodes(".scanme") %>%
+  html_text()
+```
+:::
+
+::: {.column width="40%"}
+```{r}
+estilos
+```
+:::
+:::
+
+## SelectorGadget
+
+- É necessário ainda uso de alguma ferramenta para identificação e seleção do node (fragmento do HTML de interesse na raspagem)
+- Para tal, utilizamos uma extensão de navegador, o `SelectorGadget` (Utilizado no navegador Opera, mas disponível para diversos navegadores)
+- Como sites são atualizados constantemente, seu *script* pode ficar [obsoleto]{style="color: red"} rapidamente
+
+# Exemplo problemático
+
+## Restrições de acesso
+
+::: {style="text-align: center; margin-top: 2em; font-size: 1em"}
+```{r}
+#| echo: true
+#| error: true
+
+link_site <- "https://www.amazon.com.br/s?k=televisao&__mk_pt_BR=ÅMÅŽÕÑ&crid=2HKSX4UZ7J7QF&sprefix=televisao%2Caps%2C282&ref=nb_sb_noss_1"
+page <- read_html(link_site)
+
+```
+:::
+
+::: {style="text-align: center; margin-top: 3em; font-size: 1em"}
+```{r}
+#| echo: true
+#| error: true
+download.file(link_site,
+              destfile = "scrapedpage.html",
+              quiet    = TRUE)
+
+```
+:::
+
+## Violação dos termos de uso
+
+- O acesso pode violar os *Terms of Service (ToS)* de alguns websites
+
+## Cuidados
+
+::: {style="margin-top: 1.8em; font-size: 1.2em"}
+- Lembre-se sempre de [dar crédito aos sites]{style="color: brown"} de origem
+- Evite fazer o download repetidamente do site: baixe uma vez e armazene o conteúdo (`cache`)
+:::
+
+## `Polite` package
+
+::: columns
+::: {.column width="60%"}
+- Permite acessar as páginas de maneira responsável
+- `bow()` introduz o cliente ao *host* e pede permissão para *raspar*
+- `scrape()` acessa as informações do site
+- Os resultados em *cache* para que nunca acessar a página novamente
+:::
+
+::: {.column width="40%"}
+```{r}
+#| echo: true
+
+link_site <- bow("https://everynoise.com", force = TRUE)
+
+estilos2 <- scrape(link_site) |> 
+  html_nodes(".scanme") %>%
+  html_text()
+```
+
+```{r}
+estilos2
+```
+:::
+:::
+
+
+
+# Exemplo prático
+
+Coleta de informações de currículos
+
+## Nome da pesquisadora
+
+Pode-se avaliar currículos disponibilizados no escavador.
+
+```{r}
+#| echo: true
+
+link_site <- bow("https://www.escavador.com/sobre/3499832/thais-carvalho-valadares-rodrigues",
+                 force = TRUE)
+
+page2 <- scrape(link_site)
+
+nome <- page2 %>% 
+  html_nodes(".name") %>%
+  html_text()
+```
+
+::: {style="margin-top: 3em"}
+A pesquisadora indicada no currículo é: [`r nome`]{style="color:red"}.
+:::
+
+
+
+## Descrição
+
+```{r}
+#| echo: true
+
+descricao <- page2 %>% 
+  html_nodes("#usuario .-flushHorizontal p") %>%
+  html_text()
+
+```
+
+Com a coleta acima, tem-se a seguinte descrição:
+
+
+::: {style="margin-top: 3em; font-size: .8em; color:purple; text-align: right"}
+`r descricao`
+:::
+
+
+## Títulos
+
+```{r}
+#| echo: true
+
+titulos <- page2 %>% 
+  html_nodes(".inline-edit-item-formacao") %>%
+  html_text()
+
+```
+
+Com a coleta acima, há os seguintes títulos indicados:
+
+::: {style="font-size: 1.2em; color:purple; margin-top: 3em; text-align: right"}
+`r titulos`
+:::
+
+## Descrição dos títulos
+
+```{r}
+#| echo: true
+
+descricao_titulos <- page2 %>% 
+  html_nodes(".inline-edit-item-ano-fim+ p") %>%
+  html_text()
+
+```
+
+Com a coleta acima, tem-se a seguinte descrição dos títulos:
+
+::: {style="margin-top: 3em; font-size: .6em; color:purple; text-align: right"}
+`r descricao_titulos`
+:::
+
+
+## Idiomas e proficiência
+
+```{r}
+#| echo: true
+
+idiomas <- page2 %>% 
+  html_nodes("#idiomas .-likeH5") %>%
+  html_text()
+
+idiomas <- str_remove(idiomas, " ")
+
+proficiencia <- page2 %>% 
+  html_nodes("#idiomas .-likeH5+ p") %>%
+  html_text()
+
+```
+
+```{r}
+
+proficiencia <- str_replace_all(proficiencia, "[\\n]","")
+
+linguas <- tibble(idiomas, proficiencia)
+
+kableExtra::kbl(linguas)
+```
+
+# Aplicações avançadas
+
+
+## Exemplos (ChatGPT)
+
+![](images/chatgpt.PNG){.absolute top="100" left="100" width="1200" height="600"}
+
+## FourSquare {auto-animate="true"}
+
+::: {style="text-align: center; margin-top: 2em; font-size: 2em"}
+[*Site* original: FourSquare](https://pt.foursquare.com/explore?mode=url&near=Setor%20Sudoeste&nearGeoId=10007008&q=Alimenta%C3%A7%C3%A3o){preview-link="true" style="text-align: center"}
+:::
+
+## FourSquare {auto-animate="true"}
+
+::: columns
+::: {.column width="55%"}
+::: {style="font-size: .9em"}
+-   O Objetivo aqui é ver quais restaurante disponíveis existem no sudostes, em Brasília e algumas informações pertinentes de cada um, que ajudariam na decisão.
+-   Tendo essa ideia em mente, vamos coletar o nome, o tipo de culinária, o link do restaurante, a localização, a margem de preço e as suas respectivas avaliações e reviews.
+-   Com isso, é possível coletar os comentários e fazer uma análise de sentimento quanto a comida de cada um dos restaurantes.
+:::
+:::
+
+::: {.column width="5%"}
+:::
+
+::: {.column width="40%"}
+```{r}
+#| echo: true
+
+#LINK DO SITE A SER RASPADO:
+link <- "https://pt.foursquare.com/explore?mode=url&near=Setor%20Sudoeste&nearGeoId=10007008&q=Alimenta%C3%A7%C3%A3o"
+
+#gerando a pagina do link ( formato de lista ):
+page_4sqrt <- read_html(link)
+
+# NOMES DOS RESTAURANTES
+nomes <- page_4sqrt %>% 
+  html_nodes(".venueName a") %>%
+  html_text()
+nomes#teste
+
+culinaria <- page_4sqrt %>%
+  html_nodes(".venueDataItem .categoryName") %>%
+  html_text()
+culinaria#teste
+
+loc <- page_4sqrt %>%
+  html_nodes(".venueAddress") %>%
+  html_text()
+loc#teste
+
+# PREÇO MEDIO DO RESTAURANTE
+links_rest <- page_4sqrt %>% 
+  html_nodes(".venueName a") %>%
+  html_attr("href") %>%
+  paste("https://pt.foursquare.com",.,sep="")
+links_rest#teste
+
+```
+:::
+:::
+
+## FourSquare {auto-animate="true"}
+
+-   Ainda podemos ir mais longe com as informações triviais de cada restaurante ja coletadas.
+-   O objetivo agora é entrar em cada uma das páginas dos restaurantes e coletar informações mais restritas de cada um.
+-   A partir dos links que temos, vamos coletar comentários feitos por antigos clientes e suas respectivas margens de preço.
+-   Para isso, criamos algumas funções que vão nos auxiliar a entrar em cada hiperlink encontrado nos nomes dos restaurantes na página do FourSquare e retirar as informações que queremos.
+
+## FourSquare {auto-animate="true"}
+
+::: columns
+::: {.column width="48%"}
+
+-   A primeira função retira a avaliação média dos restaurantes (`get_av`)
+```{r}
+#| echo: true
+get_av <-  function(links_rest){
+  page_rest <- read_html(links_rest)
+  av <- page_rest %>%
+    html_nodes(".venueScore span") %>%
+    html_text() 
+  av <- as.numeric(av)
+  round(mean(av),2) 
+}
+
+```
+:::
+
+::: {.column width="4%"}
+:::
+
+::: {.column width="48%"}
+
+-   A segunda funçao retira as palavras mais pertinentes dos comentários (`get_reviews`)
+```{r}
+#| echo: true
+get_reviews <-  function(links_rest){
+  page_rest <- read_html(links_rest)
+  reviews <- page_rest %>%
+    html_nodes(".tipText") %>%
+    html_text()  %>%
+    paste(collapse = " | ")
+    
+}
+```
+:::
+
+::: {.column width="4%"}
+:::
+
+::: {.column width="48%"}
+
+-   A terceira funçao retira a categoria de preço dos restaurantes (`get_price`)
+```{r}
+#| echo: true
+get_price <-  function(links_rest){
+  page_rest <- read_html(links_rest)
+  rates <- page_rest %>%
+    html_nodes(".darken") %>%
+    html_text()   %>%
+    paste(collapse = "")
+  
+}
+```
+
+
+:::
+:::
+
+## FourSquare {auto-animate="true"}
+
+::: columns
+::: {.column width="48%"}
+-  Com as funções prontas para uso, temos duas opções: usar o `for` para fazer o loop e buscar todas as informações dentro do conjunto de links que temos ou utilizar a função `sapply`, que nesse caso seria melhor pelo seu baixo uso computacional. Abaixo foi testada cada uma das opções.
+
+```{r}
+#| echo: true
+
+# Exemplo do uso do for:
+
+  # puxando a avaliação média:
+
+avaliacao = c()#cria-se o vetor vazio para o uso do append
+for (i in 1:length(nomes)) {
+avaliacao = append(avaliacao,
+                   get_av(links_rest[i]))
+}
+
+```
+
+```{r}
+#| echo: true
+
+#Exemplo de uso do sapply:
+
+  #puxando as reviews:
+review <- sapply(links_rest, FUN = get_reviews,USE.NAMES = FALSE)
+  #puxando os preços:
+preco <- sapply(links_rest, FUN = get_price,USE.NAMES = FALSE)
+
+```
+:::
+
+::: {.column width="4%"}
+:::
+
+::: {.column width="48%"}
+
+```{r}
+head(avaliacao)
+head(preco)
+head(review)
+```
+
+
+:::
+:::
+
+
+
+
+## FourSquare {auto-animate="true"}
+
+
+
+::: columns
+::: {.column width="48%"}
+
+- É possível avaliar tanto de maneira qualitativa, com a variável de avaliação média ou de maneira qualitativa a partir de cada comentário feito dos reviews do restaurante onde é possível uma núvem de palavras para uma análise de sentimentos.
+-  Por fim, a partir do momento em que todas as informações necessárias são coletadas, basta alocar todas em um único conjunto de dados.
+
+```{r}
+#| echo: true
+
+# CRIAÇÃO DO BANCO DE DADOS:
+Restaurantes <- data.frame(nomes, loc, culinaria, avaliacao, preco, review, links_rest)
+#Tudo que for vazio se torna NA.
+Restaurantes[Restaurantes==""]<- NA
+
+
+Restaurantes %<>%
+  arrange(desc(avaliacao))# banco reordenado pelo de maior avaliação média.
+```
+:::
+
+::: {.column width="4%"}
+:::
+
+::: {.column width="48%"}
+
+
+```{r}
+head(Restaurantes)
+```
+:::
+:::
+
