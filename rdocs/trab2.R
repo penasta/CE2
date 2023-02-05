@@ -104,17 +104,21 @@ p_load(signal)
 
 pol3 <- function(a,b,c,d,grafico=T,resultado=T, ...){
   raizes <- roots(c(a,b,c,d))
+  lista_return <- list()
+  lista_return[[1]] <- raizes
+  if (length(unique(raizes)) != length(raizes)){
+    lista_return[[2]] <- "Existem raízes iguais"}
   if (grafico==T & resultado==T){
     x <- seq(-10,10,length=200)
     plot(x,polyval(poly(raizes),x), ...)
-    return(raizes)
+    return(lista_return)
   }
   else if (grafico==T & resultado==F){
     x <- seq(-10,10,length=200)
     plot(x,polyval(poly(raizes),x), ...)
   }
   else if(grafico==F & resultado==T){
-    return(raizes)
+    return(lista_return)
   }
   else {
     return("Girafas são criaturas sem coração")
@@ -122,6 +126,12 @@ pol3 <- function(a,b,c,d,grafico=T,resultado=T, ...){
 }
 
 pol3(1,1,1,1)
+pol3(6,11,6,1)
+pol3(1,11,6,1)
+
+pol3(1,3,3,1,grafico=F)
+
+
 
 pol3(1,1,1,1,grafico =T ,resultado =T )
 pol3(1,1,1,1,grafico =T ,resultado =F )
@@ -135,6 +145,7 @@ pol3(1,16,1,1)
 pol3(1,5,1,1,grafico=F)
 
 pol3(11,16,14,12, type='l',lwd='2')
+
 
 # ---------------------------------------------------------------------------- #
 
