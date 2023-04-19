@@ -1,0 +1,177 @@
+---
+title: ''
+author: ''
+date: ''
+output:
+  pdf_document: null
+  fig_crop: no
+  html_document:
+    df_print: paged
+subtitle: ''
+highlight: tango
+number_sections: no
+fig_caption: yes
+keep_tex: yes
+includes:
+  in_header: Estilo.sty
+classoption: a4paper
+always_allow_html: yes
+---
+  
+  
+\begin{center}
+{\Large
+  DEPARTAMENTO DE ESTATÍSTICA} \\
+\vspace{0.5cm}
+\begin{figure}[!t]
+\centering
+\includegraphics[width=9cm, keepaspectratio]{logo-UnB.eps}
+\end{figure}
+\vskip 1em
+{\large
+  `r format(Sys.time(), '%d %B %Y')`}
+\vskip 3em
+{\LARGE
+  \textbf{Expressões regulares com pacote Stringr}} \\
+\vskip 5em
+{\Large
+  Profª. Thais Carvalho Valadares Rodrigues} \\
+\vskip 1em
+{\Large
+  Bruno Gondim Toledo (Monitor)} \\
+\vskip 1em
+{\Large
+  Computação em Estatística 2} \\
+\vskip 1em
+{\Large
+  1º/2023} \\
+\vskip 1em
+\vskip 1em
+\end{center}
+
+\vskip 5em
+
+\textbf{Instruções}
+
+\textbf{1)} As questões deverão ser respondidas em um único relatório PDF ou html, produzido usando as funcionalidades do Rmarkdown ou outra ferramenta equivalente.
+
+\vskip 2em
+
+
+\textbf{2)} O aluno poderá consultar materiais relevantes disponíveis na internet, tais como livros, blogs e artigos.
+
+\vskip 2em
+
+
+\textbf{3)} O trabalho é individual. Suspeitas de plágio e compartilhamento de soluções serão tratadas com rigor.
+
+\vskip 2em
+
+\textbf{4)} Os códigos R utilizados devem ser disponibilizados na integra, seja no corpo do texto ou como anexo.
+
+\vskip 2em
+
+\textbf{5)} O aluno deverá enviar o trabalho no prazo estipulado pela professora.
+
+\vskip 2em
+
+\textbf{6)} O trabalho será avaliado considerando o nível de qualidade do relatório, o que inclui a precisão das respostas, a pertinência das soluções encontradas, a formatação adotada, dentre outros aspectos correlatos.
+
+\vskip 2em
+
+\textbf{7)} Escreva seu código com esmero, evitando operações redundantes, visando eficiência computacional, otimizando o uso de memória, comentando os resultados e usando as melhores práticas em programação.
+
+\newpage
+
+```{r setup, include=F}
+
+if (!require("pacman")) install.packages("pacman")
+p_load(stringr,magrittr,knitr)
+
+
+```
+
+Para esta lista, iremos utilizar como inspiração o capítulo 6.3 do manual *Introdução à Análise Textual aplicada à Sociologia* (Soares,A. 2022), disponível [neste link](https://soaresalisson.github.io/analisetextual/normalização-de-texto-e-expressões-regulares.html#stringr)
+
+\vskip 3em
+
+
+Usaremos um trecho de Fenomenologia do Espírito.
+
+\vskip 2em
+
+```{r cit, include=F}
+hegel <- "O botão desaparece no desabrochar da flor, e poderia dizer-se que a flor o refuta; do mesmo modo que o fruto faz a flor parecer um falso ser-aí da planta, pondo-se como sua verdade em lugar da flor: essas formas não só se distinguem, mas também se repelem como incompatíveis entre si. Porém, ao mesmo tempo, sua natureza fluida faz delas momentos da unidade orgânica, na qual, longe de ser contradizerem, todos são igualmente necessários. É essa igual necessidade que constitui unicamente a vida do todo."
+```
+
+**"O botão desaparece no desabrochar da flor, e poderia dizer-se que a flor o refuta; do mesmo modo que o fruto faz a flor parecer um falso ser-aí da planta, pondo-se como sua verdade em lugar da flor: essas formas não só se distinguem, mas também se repelem como incompatíveis entre si. Porém, ao mesmo tempo, sua natureza fluida faz delas momentos da unidade orgânica, na qual, longe de ser contradizerem, todos são igualmente necessários. É essa igual necessidade que constitui unicamente a vida do todo."**
+
+\vskip 3em
+
+# Lista 1: Utilizando a citação acima, faça o que se pede
+
+\vskip 3em
+
+## a) Utilizando o pacote *stringr*, conte a ocorrência da palavra "flor".
+
+```{r q1, include=F}
+
+str_count(hegel, "flor")
+
+```
+
+\vskip 2em
+
+## b) Utilizando o pacote *stringr*, remova todos os pontos, vírgulas e ponto e vírgulas da citação.
+
+```{r q2, include=F}
+
+str_replace_all(hegel, "[[:punct:]]", "")
+
+```
+
+\vskip 2em
+
+## c) Utilizando as funções do pacote *stringr*, considerando a citação acima como um objeto, separe a citação em objetos a cada ponto encontrado. Em seguida, remova espaços em branco do início e fim de cada objeto.
+
+```{r q3, include=F}
+
+str_split(hegel, "\\.")[[1]] %>%
+  str_trim()#%>%
+#  cat(., sep = "\n")
+
+```
+
+\vskip 2em
+
+## d) Utilizando o pacote *stringr*, remova todos os acentos da citação. **Bônus:** mantenha apenas os hífens da citação.
+
+```{r q4, include=F}
+
+# solução aceitável: (remove os acentos mas perde as letras acentuadas)
+str_remove_all(hegel, "[^[:ascii:]]")
+
+# solução melhor: (remove os acentos sem perder as letras acentuadas, substituindo-as pela letra sem o acento, porém elimina as pontuações também)
+str_replace_all(iconv(hegel, to = "ASCII//TRANSLIT"), "[^[:alnum:]]", " ")
+
+# solução ideal: (remove os acentos sem perder as letras acentuadas, substituindo-as pela letra sem o acento; e sem perder a pontuação)
+str_replace_all(iconv(hegel, to = "ASCII//TRANSLIT"), "[^[:alnum:].,;?! ]", "")
+
+# Bônus: mantendo o hífen
+
+str_replace_all(iconv(hegel, to = "ASCII//TRANSLIT"), "[^[:alnum:].\\-,;?! ]", "")
+
+
+```
+
+\vskip 2em
+
+## e) Utilizando o pacote *stringr*, encontre na citação todas as palavras que contenham mais de 9 dígitos.
+
+```{r q5, include=F}
+
+str_extract_all(hegel, "\\b\\w{10,}\\b")
+
+```
+
+\newpage
