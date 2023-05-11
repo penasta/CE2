@@ -1,0 +1,205 @@
+---
+title: ''
+author: ''
+date: ''
+output:
+  pdf_document: null
+  fig_crop: no
+  html_document:
+    df_print: paged
+subtitle: ''
+highlight: tango
+number_sections: no
+fig_caption: yes
+keep_tex: yes
+includes:
+  in_header: Estilo.sty
+classoption: a4paper
+always_allow_html: yes
+---
+  
+  
+\begin{center}
+{\Large
+  DEPARTAMENTO DE ESTATÍSTICA} \\
+\vspace{0.5cm}
+\begin{figure}[!t]
+\centering
+\includegraphics[width=9cm, keepaspectratio]{logo-UnB.eps}
+\end{figure}
+\vskip 1em
+{\large
+  `r format(Sys.time(), '%d %B %Y')`}
+\vskip 3em
+{\LARGE
+  \textbf{Lista 2 - Pacotes lubridate, hms e forcats}} \\
+\vskip 5em
+{\Large
+  Profª. Thais Carvalho Valadares Rodrigues} \\
+\vskip 1em
+{\Large
+  Bruno Gondim Toledo (Monitor)} \\
+\vskip 1em
+{\Large
+  Computação em Estatística 2} \\
+\vskip 1em
+{\Large
+  1º/2023} \\
+\vskip 1em
+\vskip 1em
+\end{center}
+
+\vskip 25em
+
+Para esta lista, iremos utilizar como inspiração um pedaço do banco de dados sobre corridas de aplicativos de transporte na cidade de Boston, MA; disponível na íntegra [neste link](https://www.kaggle.com/datasets/brllrb/uber-and-lyft-dataset-boston-ma)
+
+Para carregar o banco de dados *uber.rds* recebido, utilize a função *read_rds()*.
+
+```{r setup, include=F}
+
+if (!require("pacman")) install.packages("pacman")
+p_load(magrittr,knitr,tidyverse,lubridate,hms)
+
+uber <- read_rds('uber.rds')
+
+```
+
+
+# Questão 1) Utilize as funções do pacote *lubridate* para executar o que se pede nas questões.
+
+\vskip 2em
+
+## a) Obtenha o dia da semana de cada corrida. Se preferir, separe a coluna de data e hora em duas para facilitar a manipulação. DICA: utilize a função *tidyr::separate()*.
+
+```{r q1a, include=FALSE}
+
+uber <- separate(uber, col = `Data e hora`, into = c("data", "hora"), sep = " ")
+uber$dsemana <- wday(uber$data, label=T,abbr=F)
+
+```
+
+\vskip 2em
+
+## b) Faça a contagem do número de viagens por dia da semana.
+
+```{r q1b, include=FALSE}
+
+# Uma forma:
+sort(table(uber$dsemana), decreasing = TRUE)
+
+# Outra forma:
+uber %>%
+  select(dsemana) %>%
+  group_by(dsemana) %>%
+  tally()
+
+```
+
+\vskip 2em
+
+
+## c) Obtenha o preço médio da corrida e a temperatura média para cada dia da semana.
+
+```{r q1c, include=FALSE}
+
+uber %>%
+  select(dsemana, Temperatura, Preço) %>%
+  group_by(dsemana) %>%
+  na.omit() %>%
+  summarise(temperatura_media = mean(Temperatura),
+            preço_media = mean(Preço))
+
+```
+
+\vskip 5em
+
+
+# Questão 2) Utilize as funções dos pacotes *hms*, *lubridate* e *forcats* para executar as questões abaixo.
+
+\vskip 2em
+
+## a) Obtenha a contagem de corridas pela hora do dia.
+
+```{r q2a, include=FALSE}
+
+uber$hora <- as_hms(uber$hora)
+uber$h <- paste0(hour(uber$hora),"h")
+uber$h <- factor(uber$h)
+
+uber %>%
+  select(h) %>%
+  group_by(h) %>%
+  tally() %>%
+  print(n=24)
+
+```
+
+\vskip 2em
+
+## b) Com os resultados obtidos da questão anterior e utilizando as funções do pacote forcats, plote um gráfico da contagem de viagens por hora do dia, ordenando da hora com maior contagem observada para a com menor contagem observada.
+
+```{r q2b, include=FALSE}
+
+uber %>%
+  mutate(h = fct_infreq(h)) %>%
+  ggplot(aes(x = h)) + 
+  geom_bar()
+
+```
+
+\vskip 5em
+
+# Questão 3) Utilize as funções dos pacotes *hms*, *lubridate* e *forcats* para executar as questões abaixo.
+
+\vskip 2em
+
+## a) Considerando "manhã" como os horários entre 1 e 11h, "tarde" como os horários entre 12 e 17h, e o restante como "noite", obtenha a contagem de corridas por cada periodo do dia.
+
+```{r q3a, include=FALSE}
+
+uber <- uber %>%
+  mutate(periodo = case_when(
+    hour(as_hms(hora)) < 12 ~ "manhã",
+    hour(as_hms(hora)) < 18 ~ "tarde",
+    TRUE ~ "noite"
+  )) 
+
+uber %>%
+  mutate(periodo = case_when(
+    hour(as_hms(hora)) < 12 ~ "manhã",
+    hour(as_hms(hora)) < 18 ~ "tarde",
+    TRUE ~ "noite"
+  )) %>%
+  select(periodo) %>%
+  group_by(periodo) %>%
+  tally()
+
+```
+
+\vskip 2em
+
+## b) Com os resultados obtidos da questão anterior e utilizando as funções do pacote forcats, plote um gráfico da contagem de viagens por periodo do dia, ordenando do período com maior contagem para o período com menor contagem. Você esperava obter estes resultados após observar os resultados obtidos na questão 2.b?
+
+```{r q3b, include=FALSE}
+
+uber %>%
+  mutate(periodo = fct_infreq(periodo)) %>%
+  ggplot(aes(x = periodo)) + 
+  geom_bar()
+
+```
+\vskip 2em
+
+## c) Obtenha o preço e a distância média das viagens em cada turno do dia. Para estes dados, o turno do dia aparenta influenciar o preço médio e a distância média das viagens?
+
+```{r q3c, include=FALSE}
+
+uber %>%
+  select(Preço, Distância, periodo) %>%
+  group_by(periodo) %>%
+  na.omit() %>%
+  summarise(pmedio = mean(Preço),dmedia = mean(Distância))
+
+```
+
+
