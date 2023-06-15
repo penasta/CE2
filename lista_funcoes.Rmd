@@ -1,0 +1,224 @@
+---
+title: ''
+author: ''
+date: ''
+output:
+  pdf_document: null
+  fig_crop: no
+  html_document:
+    df_print: paged
+subtitle: ''
+highlight: tango
+number_sections: no
+fig_caption: yes
+keep_tex: yes
+includes:
+  in_header: Estilo.sty
+classoption: a4paper
+always_allow_html: yes
+---
+  
+  
+\begin{center}
+{\Large
+  DEPARTAMENTO DE ESTATÍSTICA} \\
+\vspace{0.5cm}
+\begin{figure}[!t]
+\centering
+\includegraphics[width=9cm, keepaspectratio]{logo-UnB.eps}
+\end{figure}
+\vskip 1em
+{\large
+  `r format(Sys.time(), '%d %B %Y')`}
+\vskip 3em
+{\LARGE
+  \textbf{Funções}} \\
+\vskip 5em
+{\Large
+  Profª. Thais Carvalho Valadares Rodrigues} \\
+\vskip 1em
+{\Large
+  Bruno Gondim Toledo (Monitor)} \\
+\vskip 1em
+{\Large
+  Computação em Estatística 2} \\
+\vskip 1em
+{\Large
+  1º/2023} \\
+\vskip 1em
+\vskip 1em
+\end{center}
+
+\vskip 5em
+
+```{r setup, include=F}
+
+if (!require("pacman")) install.packages("pacman")
+p_load(knitr)
+
+```
+
+\newpage
+
+\begin{center}
+{\Large
+  \textbf{Exponenciais}} \\
+\end{center}
+
+Como sabemos, funções exponenciais são conhecidas por crescerem, e crescerem rápido. Aqui iremos trazer um exemplo lúdico. Suponha que você tenha uma folha de papel; cujas dimensões não são relevantes à excessão da altura, que iremos considerar como 0,0001 metro (aproximadamente a altura de uma folha de papel a4). Pegaremos esta folha de papel, e iremos dobrá-la, portanto, agora sua altura deverá ser o dobro da anterior, ou seja, $2 \times 0,0001 \ metro = 0,0002 \ metro$. Depois, iremos dobrá-la novamente, portanto, sua nova altura deverar ser de $2 \times 0,0002 \ metro = 0,0004 \ metro$, e iremos continuar com este processo.
+
+# Exercício 1) Estruturas de controle condicional - Utilize para elaboração dos itens 1.x) abaixo as funções *if*,*else*,*for* e *else if*; além de outras se houver necessidade.
+
+1.0) Construa uma função que para um determinado *input* $k \in \mathbb{Z} \ \ tq \ k = 0,1,2...$, ou seja, que receba como argumento um número *k* inteiro que represente o número de dobras na folha de papel que o usuário deseja fazer. A função deve retornar como resposta a altura da folha de papel após as *k* dobras. Considere a altura para $k = 0$ como $0,0001 \ metro$.
+
+1.1) Complemente sua função, tornando impossível o mal uso da função. Caso o usuário entre com um *input* não numérico, ela deve retornar a mensagem "Insira somente um número inteiro maior ou igual a zero". Caso o usuário entre com um número não inteiro, ela deve retornar a mensagem "Insira um valor inteiro". Caso o usuário tente entrar com um número negativo, ela deve retornar a mensagem "Insira um valor maior ou igual a zero".
+
+1.2) Adicione a sua função a informação completa do número de saída. Por exemplo, se a resposta foi "0,1024", a função deve retornar no console a mensagem "Altura: 0.1024 metros".
+
+1.3) Considerando como 203000 metros a distância de Brasília à Goiânia; 40075000 metros a circunferência da terra e 384400000 metros a distância da lua da terra, faça a função retornar a mensagem "O papel é maior que a distância de Brasília à Goiânia", caso a altura seja igual ou superior à 203000 metros; "O papel é maior que a circunferência da terra!" caso a altura seja igual ou superior a medida da circunferência da terra; e "O papel chegou a lua!", caso a altura do papel seja igual ou superior a distância da lua da terra. Com qual valor de *k* você atingiu tais grandezas?
+
+```{r q1, include=FALSE}
+dobras <- function(k) {
+  if(is.numeric(k)){
+  if(floor(k) == k){
+  if(k == 0){
+    print("Altura: 0.0001 metros")
+  }
+  else if(k < 0){
+    print("Insira um valor maior ou igual a zero")
+  }
+  else{
+  n_dobras <- 1
+  altura_papel <- 0.0001
+  altura <- 0
+  
+  for (i in 1:k) {
+    n_dobras <- n_dobras * 2
+    altura <- n_dobras * altura_papel
+  }
+  
+  resultado <- paste("Altura:", altura, "metros")
+  
+  if (altura > 384400000) {
+    resultado <- paste("O papel chegou a lua! ", resultado)
+  } else if (altura > 40075000) {
+    resultado <- paste("O papel é maior que a circunferência da terra! ", resultado)
+  } else if (altura > 203000) {
+    resultado <- paste("O papel é maior que a distância de Brasília à Goiânia", resultado)
+  }
+  
+  return(resultado)
+  } 
+  }else {print("Insira um valor inteiro")}
+  }else {print("Insira somente um número inteiro maior ou igual a zero")}
+  }
+
+dobras("texto")
+
+dobras(1.5)
+
+dobras(-1)
+
+dobras(0)
+
+dobras(1)
+
+dobras(10)
+
+dobras(20)
+
+dobras(30)
+
+dobras(31)
+
+dobras(39)
+
+dobras(42)
+
+```
+
+
+\newpage
+
+\begin{center}
+{\Large
+  \textbf{Variáveis aleatórias}} \\
+\end{center}
+
+# Exercício 2) Utilize o *loop while* juntamente com as funções geradoras de variáveis aleatórias (`rnorm`,`rpois`,...) para elaborar os exercícios 2.x) abaixo. Como trabalharemos com variáveis aleatórias, as suas funções devem retornar um valor diferente para cada vez que forem executadas.
+
+2.2) Um jogador pretende lançar uma moeda honesta e contar o número de caras até obter 10 caras. Construa uma função que simule o lancamento dessa moeda e conte o número de lançamentos necessários até se obter 10 caras. DICA: utilize a função `rbinom` com parâmetros *n=1*, *size=1* e *prob=0.5* para simular cada lançamento. Rode algumas vezes a função para verificar alguns possíveis resultados.
+
+```{r q21,include=FALSE}
+
+lancamentos_ate_10_caras <- function() {
+  num_caras_desejadas <- 10
+  num_lancamentos <- 0
+  num_caras_observadas <- 0
+  
+  while (num_caras_observadas < num_caras_desejadas) {
+    lancamentos <- rbinom(1, 1, 0.5)
+    num_lancamentos <- num_lancamentos + 1
+    
+    if (lancamentos == 1) {
+      num_caras_observadas <- num_caras_observadas + 1
+    }
+  }
+  
+  return(num_lancamentos)
+}
+
+lancamentos_ate_10_caras()
+
+```
+
+
+2.2) Um estacionamento tem capacidade para 80 carros estacionados. Considerando que os carros não vão embora, e que a chegada de carros segue uma distribuição *Poisson* com $\lambda=2$, ou seja, média de 2 carros chegando e estacionando a cada minuto,construa uma função que retorne em quantos minutos o estacionamento lotou. Rode algumas vezes a função para verificar alguns possíveis resultados.
+
+```{r q22, include=FALSE}
+
+media_tempo <- function(){
+  media_chegadas <- 2
+  max_carros <- 80
+  minutos <- 0
+  n_carros <- 0
+while (n_carros < max_carros) {
+  chegadas <- rpois(1, media_chegadas)
+  n_carros <- n_carros + chegadas
+  minutos <- minutos + 1
+}
+  return(cat("O estacionamento lotou em", minutos, "minutos."))}
+
+media_tempo()
+
+media_tempo()
+
+media_tempo()
+
+```
+
+2.3) Suponha que a duração do gás de um botijão de gás de cozinha siga distribuição exponencial, durando em média 100 dias. Construa uma função que simule a duração de um botijão de gás até que ele se esgote. Rode algumas vezes a função para verificar alguns possíveis resultados. DICA: utilize a função `rexp` com parâmetros $n=1$ e $\lambda=100$ (ou seja, `rate = 1/100`).
+
+```{r q23,include=FALSE}
+
+duracao_botijao_gas <- function() {
+  duracao <- 0
+  botijao_vazio <- FALSE
+  media <- 100
+  
+  while (!botijao_vazio) {
+    tempo_passado <- rexp(1, rate = 1/media)
+    duracao <- duracao + tempo_passado
+    
+    if (duracao >= media) {
+      botijao_vazio <- TRUE
+    }
+  }
+  
+  return(duracao)
+}
+
+duracao_botijao_gas()
+
+```
+
