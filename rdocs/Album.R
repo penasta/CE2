@@ -1,7 +1,7 @@
 
 # -------------------------------------------------------------------------- #
 # Minha versão:
-library(tidyverse)
+pacman::p_load(tidyverse)
 {
   {
     n_figurinha <- data.frame(1:633)
